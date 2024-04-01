@@ -23,7 +23,7 @@ public class AuthenticationController {
         String csrfToken = UUID.randomUUID().toString();
 
         Map<String, String> resMap = new HashMap<>();
-        resMap.put(StatelessCSRFFilter.CSRF_TOKEN, csrfToken);
+        resMap.put(StatelessCSRFFilter.CSRF_TOKEN, csrfToken); // 토큰 설정
 
         generateCSRFTokenCookie(response);
         return ResponseEntity.ok(resMap);
