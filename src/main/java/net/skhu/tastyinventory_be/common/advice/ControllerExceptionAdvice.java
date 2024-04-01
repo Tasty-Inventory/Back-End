@@ -7,6 +7,7 @@ import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.model.CustomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -60,12 +61,12 @@ public class ControllerExceptionAdvice {
     /**
      * 401 UNAUTHORIZED
      */
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ExceptionHandler(BadCredentialsException.class)
-//    protected BaseResponse badCredentialsException(final BadCredentialsException e) {
-//        log.error("Bad Credentials: {}", e.getMessage(), e);
-//        return BaseResponse.error(ErrorCode.AUTHORIZE_FAILED_EXCEPTION, ErrorCode.AUTHORIZE_FAILED_EXCEPTION.getMessage());
-//    }
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    protected BaseResponse badCredentialsException(final BadCredentialsException e) {
+        log.error("Bad Credentials: {}", e.getMessage(), e);
+        return BaseResponse.error(ErrorCode.AUTHORIZE_FAILED_EXCEPTION, ErrorCode.AUTHORIZE_FAILED_EXCEPTION.getMessage());
+    }
 
     /**
      * 413 PAYLOAD_TOO_LARGE
