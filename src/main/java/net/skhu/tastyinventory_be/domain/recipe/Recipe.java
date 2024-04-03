@@ -13,6 +13,7 @@ import net.skhu.tastyinventory_be.domain.menu.Menu;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,14 +21,14 @@ public class Recipe {
     private Menu menu;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "inventory_id")
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
 
+    @Column(nullable = false)
     private Integer usage;  //재료 사용량
 
     @Builder
-    public Recipe(Long id, Menu menu, Inventory inventory, Integer usage) {
-        this.id = id;
+    public Recipe(Menu menu, Inventory inventory, Integer usage) {
         this.menu = menu;
         this.inventory = inventory;
         this.usage = usage;

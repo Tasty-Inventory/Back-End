@@ -21,14 +21,31 @@ public class InventoryVolume {
     @Temporal(TemporalType.DATE)
     private Date weekStart;
 
+    @Column(nullable = false)
     private Integer friInventory;
+
+    @Column(nullable = false)
     private Integer sunInventory;
+
+    @Column(nullable = false)
     private Integer monOrder;
+
+    @Column(nullable = false)
     private Integer tueOrder;
+
+    @Column(nullable = false)
     private Integer wedOrder;
+
+    @Column(nullable = false)
     private Integer thuOrder;
+
+    @Column(nullable = false)
     private Integer friOrder;
+
+    @Column(nullable = false)
     private Integer satOrder;
+
+    @Column(nullable = false)
     private Integer sunOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,11 +53,10 @@ public class InventoryVolume {
     private Inventory inventory;
 
     @Builder
-    public InventoryVolume(Long id, Date weekStart, Integer friInventory, Integer sumInventory, Integer monOrder, Integer tueOrder, Integer wedOrder, Integer thuOrder, Integer friOrder, Integer satOrder, Integer sunOrder, Inventory inventory) {
-        this.id = id;
+    public InventoryVolume(Date weekStart, Integer friInventory, Integer sunInventory, Integer monOrder, Integer tueOrder, Integer wedOrder, Integer thuOrder, Integer friOrder, Integer satOrder, Integer sunOrder, Inventory inventory) {
         this.weekStart = weekStart;
         this.friInventory = friInventory;
-        this.sunInventory = sumInventory;
+        this.sunInventory = sunInventory;
         this.monOrder = monOrder;
         this.tueOrder = tueOrder;
         this.wedOrder = wedOrder;

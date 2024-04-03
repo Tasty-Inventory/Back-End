@@ -18,14 +18,14 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private  String name;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "menu")
     private Set<Recipe> recipes = new HashSet<>();
 
     @Builder
-    public Menu(Long id, String name) {
-        this.id = id;
+    public Menu(String name) {
         this.name = name;
     }
 
