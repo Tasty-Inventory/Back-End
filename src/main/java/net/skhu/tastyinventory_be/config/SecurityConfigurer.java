@@ -31,7 +31,7 @@ public class SecurityConfigurer {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").anonymous()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users").anonymous()
                         .anyRequest().authenticated())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
