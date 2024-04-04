@@ -6,10 +6,13 @@ import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.util.ServletErrorResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Slf4j
@@ -27,8 +30,9 @@ public class SecurityConfigurer {
                 .logout(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/").permitAll()
-                        .anyRequest().permitAll())
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users").anonymous()
+                        .anyRequest().authenticated())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             log.error("403: {}", accessDeniedException.getMessage(), accessDeniedException);
@@ -41,5 +45,10 @@ public class SecurityConfigurer {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
