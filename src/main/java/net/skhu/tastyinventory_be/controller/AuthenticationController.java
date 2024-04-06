@@ -8,6 +8,7 @@ import net.skhu.tastyinventory_be.security.StatelessCSRFFilter;
 import net.skhu.tastyinventory_be.util.CookieUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class AuthenticationController {
     @GetMapping("/csrf-token")
     public ResponseEntity<?> getCsrfToken(HttpServletRequest request, HttpServletResponse response) {

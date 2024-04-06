@@ -38,8 +38,8 @@ public class SecurityConfigurer {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users").anonymous()
-                        .anyRequest().authenticated())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                        .anyRequest().permitAll())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             log.error("403: {}", accessDeniedException.getMessage(), accessDeniedException);
