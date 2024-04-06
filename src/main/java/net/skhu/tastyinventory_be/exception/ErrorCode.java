@@ -37,7 +37,10 @@ public enum ErrorCode {
     /**
      * 403 FORBIDDEN
      */
-    FORBIDDEN_REQUEST_EXCEPTION(HttpStatus.FORBIDDEN, "접근 권한이 없는 사용자입니다."),
+    FORBIDDEN_REQUEST_EXCEPTION(HttpStatus.FORBIDDEN, "접근 권한이 없는 요청입니다."),
+    CSRF_HEADER_TOKEN_NOT_FOUND_EXCEPTION(HttpStatus.FORBIDDEN, "헤더에 CSRF 토큰이 존재하지 않습니다."),
+    CSRF_COOKIE_TOKEN_NOT_FOUND_EXCEPTION(HttpStatus.FORBIDDEN, "쿠키에 CSRF 토큰이 존재하지 않습니다."),
+    CSRF_TOKEN_INVALID_EXCEPTION(HttpStatus.FORBIDDEN, "CSRF 토큰이 유효하지 않습니다."),
 
     /**
      * 404 NOT FOUND
