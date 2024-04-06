@@ -11,6 +11,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Slf4j
+@Component
 public class StatelessCSRFFilter extends OncePerRequestFilter {
     public static final String CSRF_TOKEN = "CSRF-TOKEN";
     public static final String X_CSRF_TOKEN = "X-CSRF-TOKEN";
@@ -25,16 +27,13 @@ public class StatelessCSRFFilter extends OncePerRequestFilter {
     private final AccessDeniedHandler accessDeniedHandler = new AccessDeniedHandlerImpl();
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (requireCsrfProtectionMatcher.matches(request)) {
             Optional<String> optCsrfToken = Optional.ofNullable(request.getHeader(X_CSRF_TOKEN));
             Optional<Cookie> optCsrfCookie = CookieUtils.getCookie(request, CSRF_TOKEN);
 
-            log.debug(optCsrfToken.orElse("CSRF 토큰 헤더가 존재하지 않습니다."));
-            log.debug(optCsrfCookie.isPresent() ? optCsrfCookie.get().getValue() : "CSRF 쿠키가 존재하지 않습니다.");
+            log.error(optCsrfToken.orElse("CSRF 토큰 헤더가 존재하지 않습니다."));
+            log.error(optCsrfCookie.isPresent() ? optCsrfCookie.get().getValue() : "CSRF 쿠키가 존재하지 않습니다.");
 
             if (optCsrfCookie.isEmpty() || optCsrfToken.isEmpty() || !optCsrfToken.get().equals(optCsrfCookie.get().getValue())) {
                 accessDeniedHandler.handle(request, response, new AccessDeniedException("CSRF 토큰이 유효하지 않습니다."));

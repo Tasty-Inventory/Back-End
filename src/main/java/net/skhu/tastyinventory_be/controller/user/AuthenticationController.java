@@ -1,0 +1,59 @@
+package net.skhu.tastyinventory_be.controller.user;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.skhu.tastyinventory_be.controller.user.dto.AuthorizationRequest;
+import net.skhu.tastyinventory_be.security.StatelessCSRFFilter;
+import net.skhu.tastyinventory_be.security.jwt.JwtProvider;
+import net.skhu.tastyinventory_be.service.UserService;
+import net.skhu.tastyinventory_be.util.CookieUtils;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+@RestController
+@Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/api/v1")
+public class AuthenticationController {
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
+
+    @GetMapping("/csrf-token")
+    public ResponseEntity<?> getCsrfToken(HttpServletRequest request, HttpServletResponse response) {
+        String csrfToken = UUID.randomUUID().toString();
+        Map<String, String> resMap = new HashMap<>();
+        resMap.put(StatelessCSRFFilter.CSRF_TOKEN, csrfToken);
+
+        generateCSRFTokenCookie(response);
+        return ResponseEntity.ok(resMap);
+    }
+
+    @PostMapping("/authorize")
+    public void authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authorizationRequest.getUsername(), authorizationRequest.getPassword()));
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        generateTokenCookie(userDetails, request, response);
+    }
+
+    private void generateCSRFTokenCookie(HttpServletResponse response) {
+        CookieUtils.addCookie(response, StatelessCSRFFilter.CSRF_TOKEN, UUID.randomUUID().toString(), 60 * 60 * 24);
+    }
+
+    private void generateTokenCookie(UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) {
+        final int cookieMaxAge = jwtProvider.getTokenExpirationDate().intValue();
+        boolean secure = request.isSecure();
+        CookieUtils.addCookie(response, "access_token", jwtProvider.generateToken(userDetails.getUsername()), true, secure, cookieMaxAge);
+    }
+}

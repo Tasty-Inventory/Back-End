@@ -3,6 +3,9 @@ package net.skhu.tastyinventory_be.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
+import net.skhu.tastyinventory_be.security.StatelessCSRFFilter;
+import net.skhu.tastyinventory_be.security.jwt.JwtAuthenticationFilter;
+import net.skhu.tastyinventory_be.security.jwt.JwtExceptionHandlerFilter;
 import net.skhu.tastyinventory_be.util.ServletErrorResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +19,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 @Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfigurer {
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtExceptionHandlerFilter jwtExceptionHandlerFilter;
+
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -38,7 +46,8 @@ public class SecurityConfigurer {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                        .requestMatchers("/api/v1/csrf-token").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users", "api/v1/authorize").permitAll()
                         .anyRequest().permitAll())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
@@ -50,6 +59,10 @@ public class SecurityConfigurer {
                             ServletErrorResponse.setErrorResponse(response, ErrorCode.INSUFFICIENT_AUTHENTICATION_EXCEPTION);
                         }))
                 );
+
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtExceptionHandlerFilter, JwtAuthenticationFilter.class)
+                .addFilterBefore(new StatelessCSRFFilter(), CsrfFilter.class);
 
         return http.build();
     }
