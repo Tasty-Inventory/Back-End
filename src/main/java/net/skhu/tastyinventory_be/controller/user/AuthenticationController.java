@@ -24,7 +24,6 @@ import java.util.UUID;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
 public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;

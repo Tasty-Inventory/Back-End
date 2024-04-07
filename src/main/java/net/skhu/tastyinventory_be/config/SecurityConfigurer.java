@@ -46,8 +46,8 @@ public class SecurityConfigurer {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers("/api/v1/csrf-token").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users", "api/v1/authorize").permitAll()
+                        .requestMatchers("/csrf-token").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users", "/authorize").permitAll()
                         .anyRequest().permitAll())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
