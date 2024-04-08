@@ -5,7 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.controller.user.dto.AuthorizationRequest;
+import net.skhu.tastyinventory_be.domain.user.UserRepository;
+import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.security.StatelessCSRFFilter;
 import net.skhu.tastyinventory_be.security.jwt.JwtProvider;
 import net.skhu.tastyinventory_be.service.UserService;
@@ -26,6 +29,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final UserService userService;
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
 
@@ -40,10 +44,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authorize")
-    public void authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
+    public BaseResponse authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authorizationRequest.getUsername(), authorizationRequest.getPassword()));
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         generateTokenCookie(userDetails, request, response);
+        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS);
     }
 
     private void generateCSRFTokenCookie(HttpServletResponse response) {
