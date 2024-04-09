@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
 import net.skhu.tastyinventory_be.domain.recipe.Recipe;
+import org.springframework.data.annotation.TypeAlias;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @NoArgsConstructor
+@Table(name = "Inventory")
 @Entity
 public class Inventory {
     @Id
@@ -24,6 +26,8 @@ public class Inventory {
     @Column(length = 45)
     private  String unit;
 
+    private String imageUrl;
+
     @OneToMany(mappedBy = "inventory")
     private Set<Recipe> recipes = new HashSet<>();
 
@@ -32,9 +36,10 @@ public class Inventory {
 
 
     @Builder
-    public Inventory(String name, String unit, Set<InventoryVolume> inventoryVolumes) {
+    public Inventory(String name, String unit, String imageUrl, Set<InventoryVolume> inventoryVolumes) {
         this.name = name;
         this.unit = unit;
+        this.imageUrl = imageUrl;
         this.inventoryVolumes = inventoryVolumes != null ? inventoryVolumes : new HashSet<>();
     }
 }

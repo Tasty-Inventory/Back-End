@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
+@Table(name = "Menu")
 @Entity
 public class Menu {
 
