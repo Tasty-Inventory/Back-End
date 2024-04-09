@@ -51,6 +51,13 @@ public class AuthenticationController {
         return BaseResponse.success(SuccessCode.LOGIN_SUCCESS);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> expiredToken(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, "access_token");
+        CookieUtils.deleteCookie(request, response, StatelessCSRFFilter.CSRF_TOKEN);
+        return ResponseEntity.ok("success");
+    }
+
     private void generateCSRFTokenCookie(HttpServletResponse response) {
         CookieUtils.addCookie(response, StatelessCSRFFilter.CSRF_TOKEN, UUID.randomUUID().toString(), 60 * 60 * 24);
     }
