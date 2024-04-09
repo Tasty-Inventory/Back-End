@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class StatelessCSRFFilter extends OncePerRequestFilter {
     public static final String CSRF_TOKEN = "CSRF-TOKEN";
-    public static final String X_CSRF   _TOKEN = "X-CSRF-TOKEN";
+    public static final String X_CSRF_TOKEN = "X-CSRF-TOKEN";
     private final RequestMatcher requireCsrfProtectionMatcher = new DefaultRequiresCsrfMatcher();
     private final AccessDeniedHandler accessDeniedHandler = new AccessDeniedHandlerImpl();
 
