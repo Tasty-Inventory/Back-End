@@ -38,7 +38,7 @@ public class AuthenticationController {
         String csrfToken = UUID.randomUUID().toString();
         Map<String, String> resMap = new HashMap<>();
         resMap.put(StatelessCSRFFilter.CSRF_TOKEN, csrfToken);
-        generateCSRFTokenCookie(response);
+        generateCSRFTokenCookie(response, csrfToken);
         return ResponseEntity.ok(resMap);
     }
 
@@ -57,8 +57,8 @@ public class AuthenticationController {
         return ResponseEntity.ok("success");
     }
 
-    private void generateCSRFTokenCookie(HttpServletResponse response) {
-        CookieUtils.addCookie(response, StatelessCSRFFilter.CSRF_TOKEN, UUID.randomUUID().toString(), 60 * 60 * 24);
+    private void generateCSRFTokenCookie(HttpServletResponse response, String csrfToken) {
+        CookieUtils.addCookie(response, StatelessCSRFFilter.CSRF_TOKEN, csrfToken, 60 * 60 * 24);
     }
 
     private void generateTokenCookie(UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) {
