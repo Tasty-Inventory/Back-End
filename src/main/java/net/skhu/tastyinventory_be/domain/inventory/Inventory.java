@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
 import net.skhu.tastyinventory_be.domain.recipe.Recipe;
-import org.springframework.data.annotation.TypeAlias;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "Inventory")
+@Table(name = "inventory")
 @Entity
 public class Inventory {
     @Id
