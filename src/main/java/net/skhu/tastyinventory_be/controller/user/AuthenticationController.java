@@ -51,10 +51,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> expiredToken(HttpServletRequest request, HttpServletResponse response) {
+    public BaseResponse expiredToken(HttpServletRequest request, HttpServletResponse response) {
         CookieUtils.deleteCookie(request, response, "access_token");
         CookieUtils.deleteCookie(request, response, StatelessCSRFFilter.CSRF_TOKEN);
-        return ResponseEntity.ok("success");
+        return BaseResponse.success(SuccessCode.LOGOUT_SUCCESS);
     }
 
     private void generateCSRFTokenCookie(HttpServletResponse response, String csrfToken) {
@@ -63,8 +63,6 @@ public class AuthenticationController {
 
     private void generateTokenCookie(UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) {
         final int cookieMaxAge = jwtProvider.getTokenExpirationDate().intValue();
-        boolean secure = request.isSecure();
-        log.info("이 요청은 https입니다: " + secure);
         CookieUtils.addCookie(response, "access_token", jwtProvider.generateToken(userDetails.getUsername()), true, true, cookieMaxAge);
     }
 }
