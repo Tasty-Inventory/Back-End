@@ -31,7 +31,7 @@ import java.util.Optional;
 public abstract class OAuth2Service {
     protected final RestTemplate restTemplate;
 
-    public void redirectAuthorizePage(ClientRegistration clientRegistration, String state, HttpServletResponse response) throws IOException {
+    public String redirectAuthorizePage(ClientRegistration clientRegistration, String state, HttpServletResponse response) throws IOException {
         String authorizationUri = UriComponentsBuilder.fromUriString(clientRegistration.getProviderDetails().getAuthorizationUri())
                 .queryParam("client_id", clientRegistration.getClientId())
                 .queryParam("response_type", "code")
@@ -41,7 +41,8 @@ public abstract class OAuth2Service {
                 .queryParam("state", state)
                 .queryParam("redirect_uri", clientRegistration.getRedirectUri())
                 .build().encode(StandardCharsets.UTF_8).toUriString();
-        response.sendRedirect(authorizationUri);
+//        response.sendRedirect(authorizationUri);
+        return authorizationUri;
     }
 
     public OAuth2Token getAccessToken(ClientRegistration clientRegistration, String code, String state) {
