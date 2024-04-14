@@ -20,7 +20,7 @@ public class Employee {
     String email;
     String address;
     String position;
-    Date hireDate;
+    String hireDate;
     String employmentStatus;
     String bankAccount;
     float totalSalary; // BigDecimal

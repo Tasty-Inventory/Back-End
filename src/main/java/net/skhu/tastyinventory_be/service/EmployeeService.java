@@ -15,6 +15,11 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Transactional
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    @Transactional
     public List<EmployeeResponseDto> getEmployee(){
         List<Employee> employees = employeeRepository.findAll();
         List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();

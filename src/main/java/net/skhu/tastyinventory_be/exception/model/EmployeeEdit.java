@@ -36,7 +36,7 @@ public class EmployeeEdit {
 
     @NotEmpty
     @NotBlank
-    Date hireDate;
+    String hireDate;
 
     @NotEmpty
     @NotBlank
