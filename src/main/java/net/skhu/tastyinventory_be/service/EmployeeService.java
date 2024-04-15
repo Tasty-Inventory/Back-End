@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -32,5 +33,28 @@ public class EmployeeService {
             employeeResponseDtos.add(employeeResponseDto);
         }
         return employeeResponseDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public EmployeeResponseDto getEmployeeDetails(Long id) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        if (employeeOptional.isPresent()) {
+            Employee employee = employeeOptional.get();
+            EmployeeResponseDto employeeResponseDto = new EmployeeResponseDto();
+            employeeResponseDto.setId(employee.getId());
+            employeeResponseDto.setName(employee.getName());
+            employeeResponseDto.setPhoneNumber(employee.getPhoneNumber());
+            employeeResponseDto.setPosition(employee.getPosition());
+            // 나머지 필드도 필요에 따라 추가
+
+            return employeeResponseDto;
+        } else {
+            return null;
+        }
+    }
+
+    @Transactional
+    public Optional<Employee> findById(Long id) {
+        return employeeRepository.findById(id);
     }
 }
