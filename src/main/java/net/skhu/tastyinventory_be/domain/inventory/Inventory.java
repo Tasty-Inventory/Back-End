@@ -27,18 +27,18 @@ public class Inventory {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "inventory")
-    private Set<Recipe> recipes = new HashSet<>();
-
-    @OneToMany(mappedBy = "inventory")
-    private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
+//    @OneToMany(mappedBy = "inventory")
+//    private Set<Recipe> recipes = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "inventory")
+//    private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
 
 
     @Builder
-    public Inventory(String name, String unit, String imageUrl, Set<InventoryVolume> inventoryVolumes) {
+    public Inventory(String name, String unit, String imageUrl) {   //, Set<InventoryVolume> inventoryVolumes
         this.name = name;
         this.unit = unit;
         this.imageUrl = imageUrl;
-        this.inventoryVolumes = inventoryVolumes != null ? inventoryVolumes : new HashSet<>();
+//        this.inventoryVolumes = inventoryVolumes != null ? inventoryVolumes : new HashSet<>();
     }
 }
