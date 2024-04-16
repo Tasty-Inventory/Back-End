@@ -2,7 +2,7 @@ package net.skhu.tastyinventory_be.service.Inventory;
 
 import jakarta.transaction.Transactional;
 import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
-import net.skhu.tastyinventory_be.dto.InventoryDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package net.skhu.tastyinventory_be.controller.inventory;
 
 import lombok.RequiredArgsConstructor;
 
-import net.skhu.tastyinventory_be.dto.InventoryDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryDto;
 import net.skhu.tastyinventory_be.service.Inventory.InventoryService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
