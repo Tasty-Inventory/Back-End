@@ -21,7 +21,7 @@ public class CookieUtils {
     }
 
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
-        addCookie(response, name, value, false, true, maxAge);
+        addCookie(response, name, value, true, true, maxAge);
     }
 
     public static void addCookie(HttpServletResponse response, String name, String value, boolean httpOnly, boolean secure, int maxAge) {
