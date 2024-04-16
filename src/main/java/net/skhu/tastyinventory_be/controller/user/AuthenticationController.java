@@ -25,7 +25,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -85,17 +84,6 @@ public class AuthenticationController {
         return BaseResponse.success(SuccessCode.LOGIN_SUCCESS);
     }
 
-    public UserDetails getCurrentUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                return (UserDetails) principal;
-            }
-        }
-        return null;
-    }
-
     @GetMapping("/oauth2/authorize/{provider}")
     public String redirectSocialAuthorizationPage(
             @PathVariable String provider,
@@ -146,10 +134,9 @@ public class AuthenticationController {
             String state = generateState();
             UserDetails userDetails = userService.loginOAuth2User(provider, oAuth2Token, oAuth2UserInfo);
             inMemoryOAuth2UserDetailsRepository.saveUserDetails(state, userDetails);
-//            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             String redirectUri = UriComponentsBuilder.fromUriString(oAuth2AuthorizationRequestDto.getRedirectUri())
+                    .queryParam("provider", provider)
+                    .queryParam("name", userDetails.getUsername())
                     .queryParam("user_state", state)
                     .build().encode(StandardCharsets.UTF_8).toUriString();
             response.sendRedirect(redirectUri);
