@@ -69,7 +69,7 @@ public class EmployeeController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
         }
-        log.info("여기야~");
+
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();

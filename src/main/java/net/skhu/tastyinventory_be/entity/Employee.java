@@ -3,6 +3,7 @@ package net.skhu.tastyinventory_be.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Employee {
     String hireDate;
     String employmentStatus;
     String bankAccount;
-    float totalSalary; // BigDecimal
+    String baseSalary; // BigDecimal
     String note; // 특이사항
 
     @OneToMany
