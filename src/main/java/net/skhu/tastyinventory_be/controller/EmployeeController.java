@@ -91,4 +91,15 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
+        Optional<Employee> employeeOptional = employeeService.findById(id);
+        if (employeeOptional.isPresent()) {
+            employeeService.deleteById(id);
+            return ResponseEntity.ok("직원 정보 삭제");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
