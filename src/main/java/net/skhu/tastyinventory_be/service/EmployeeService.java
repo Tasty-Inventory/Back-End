@@ -45,7 +45,6 @@ public class EmployeeService {
             employeeResponseDto.setName(employee.getName());
             employeeResponseDto.setPhoneNumber(employee.getPhoneNumber());
             employeeResponseDto.setPosition(employee.getPosition());
-            // 나머지 필드도 필요에 따라 추가
 
             return employeeResponseDto;
         } else {

@@ -1,9 +1,10 @@
 package net.skhu.tastyinventory_be.exception.model;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 @Data
@@ -34,9 +35,8 @@ public class EmployeeEdit {
     @NotBlank
     String position;
 
-    @NotEmpty
-    @NotBlank
-    String hireDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date hireDate;
 
     @NotEmpty
     @NotBlank

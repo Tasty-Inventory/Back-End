@@ -2,9 +2,7 @@ package net.skhu.tastyinventory_be.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.DayOfWeek;
-import java.util.Date;
 
 @Data
 @Entity
@@ -12,7 +10,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    Long id;
+    int id;
     String monthWeek; // N월 M주차
 
     @Enumerated(EnumType.STRING)

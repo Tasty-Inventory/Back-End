@@ -2,8 +2,8 @@ package net.skhu.tastyinventory_be.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +21,13 @@ public class Employee {
     String email;
     String address;
     String position;
-    String hireDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date hireDate;
+
     String employmentStatus;
     String bankAccount;
-    String baseSalary; // BigDecimal
+
     String note; // 특이사항
 
     @OneToMany

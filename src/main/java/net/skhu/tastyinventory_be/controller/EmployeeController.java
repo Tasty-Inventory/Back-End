@@ -24,13 +24,13 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping("list")
+    @GetMapping
     public ResponseEntity<List<EmployeeResponseDto>> findAll() {
         return ResponseEntity.ok(employeeService.getEmployee());
     }
 
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<String> createEmployee(@Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
@@ -54,7 +54,7 @@ public class EmployeeController {
         return ResponseEntity.ok("직원이 생성되었습니다.");
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<EmployeeResponseDto> getEmployeeDetails(@PathVariable Long id) {
         EmployeeResponseDto employee = employeeService.getEmployeeDetails(id);
         if (employee != null) {
@@ -64,7 +64,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("{id}")
     public ResponseEntity<String> editEmployeeDetails(@PathVariable Long id, @Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
@@ -92,7 +92,7 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
