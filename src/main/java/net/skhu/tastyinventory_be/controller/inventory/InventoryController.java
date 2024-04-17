@@ -28,7 +28,7 @@ public class InventoryController {
     }
 
     @GetMapping("/{inventoryId}")
-    public Inventory getInventoryById(@PathVariable Long inventoryId) {
-        return inventoryService.findById((inventoryId));
+    public Inventory getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
+        return inventoryService.findById(inventoryId);
     }
 }

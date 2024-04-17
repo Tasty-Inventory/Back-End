@@ -16,21 +16,21 @@ public class Recipe {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
-    private Inventory inventory;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "menuId")
+//    private Menu menu;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "inventoryId", referencedColumnName = "id")
+//    private Inventory inventory;
 
     @Column(nullable = false)
     private Integer usage;  //재료 사용량
 
     @Builder
-    public Recipe(Menu menu, Inventory inventory, Integer usage) {
-        this.menu = menu;
-        this.inventory = inventory;
+    public Recipe(Integer usage) {  //Menu menu, Inventory inventory,
+//        this.menu = menu;
+//        this.inventory = inventory;
         this.usage = usage;
     }
 
