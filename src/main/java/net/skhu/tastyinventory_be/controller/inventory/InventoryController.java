@@ -27,4 +27,8 @@ public class InventoryController {
         return inventoryService.findAll();
     }
 
+    @GetMapping("/{inventoryId}")
+    public Inventory getInventoryById(@PathVariable Long inventoryId) {
+        return inventoryService.findById((inventoryId));
+    }
 }

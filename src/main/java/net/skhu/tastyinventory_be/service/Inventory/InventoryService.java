@@ -1,5 +1,6 @@
 package net.skhu.tastyinventory_be.service.Inventory;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
@@ -20,5 +21,10 @@ public class InventoryService {
     }
     public List<Inventory> findAll(){
         return inventoryRepository.findAll();
+    }
+
+    public Inventory findById(Long inventoryId) {
+        return inventoryRepository.findById(inventoryId).orElseThrow(() ->
+                new EntityNotFoundException("Inventory not found with id: " + inventoryId));
     }
 }
