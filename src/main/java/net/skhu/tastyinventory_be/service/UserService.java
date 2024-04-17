@@ -1,7 +1,7 @@
 package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
-import net.skhu.tastyinventory_be.controller.user.dto.SignUpRequestDto;
+import net.skhu.tastyinventory_be.controller.user.dto.request.SignUpRequestDto;
 import net.skhu.tastyinventory_be.domain.user.User;
 import net.skhu.tastyinventory_be.domain.user.UserRepository;
 import net.skhu.tastyinventory_be.domain.user.UserType;

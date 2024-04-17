@@ -38,7 +38,7 @@ public class StatelessCSRFFilter extends OncePerRequestFilter {
                     throw new SecurityException(ErrorCode.CSRF_TOKEN_INVALID_EXCEPTION, ErrorCode.CSRF_TOKEN_INVALID_EXCEPTION.getMessage());
                 }
             } catch (SecurityException e) {
-                log.error("CSRF 토큰 에러: {}", e.getMessage(), e);
+                log.error("CSRF 토큰이 일치하지 않습니다: {}", e.getMessage(), e);
                 setErrorResponse(response, e.getErrorCode());
                 return;
             }
