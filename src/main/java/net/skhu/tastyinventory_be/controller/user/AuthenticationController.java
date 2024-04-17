@@ -63,9 +63,9 @@ public class AuthenticationController {
     @PostMapping("/authorize")
     public BaseResponse<LoginResponseDto> authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authorizationRequest.getUsername(), authorizationRequest.getPassword()));
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         generateTokenCookie(userDetails, request, response);
-        final LoginResponseDto data = LoginResponseDto.of(userDetails.getUsername());
+        final LoginResponseDto data = LoginResponseDto.of(userDetails.getEmail());
         return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
@@ -81,9 +81,9 @@ public class AuthenticationController {
             @RequestParam(name = "user_state") String state,
             HttpServletRequest request, HttpServletResponse response
     ) {
-        UserDetails userDetails = inMemoryOAuth2UserDetailsRepository.deleteUserDetails(state);
+        UserDetailsImpl userDetails = (UserDetailsImpl) inMemoryOAuth2UserDetailsRepository.deleteUserDetails(state);
         generateTokenCookie(userDetails, request, response);
-        final LoginResponseDto data = LoginResponseDto.of(userDetails.getUsername());
+        final LoginResponseDto data = LoginResponseDto.of(userDetails.getEmail());
         return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
@@ -135,7 +135,7 @@ public class AuthenticationController {
 
         if (oAuth2AuthorizationRequestDto.getCallback().equalsIgnoreCase("login")) {
             String state = generateState();
-            UserDetails userDetails = userService.loginOAuth2User(provider, oAuth2Token, oAuth2UserInfo);
+            UserDetailsImpl userDetails = (UserDetailsImpl) userService.loginOAuth2User(provider, oAuth2Token, oAuth2UserInfo);
             inMemoryOAuth2UserDetailsRepository.saveUserDetails(state, userDetails);
             String redirectUri = UriComponentsBuilder.fromUriString(oAuth2AuthorizationRequestDto.getRedirectUri())
                     .queryParam("provider", provider)
