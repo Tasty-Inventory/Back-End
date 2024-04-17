@@ -6,7 +6,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
-import net.skhu.tastyinventory_be.controller.user.dto.AuthorizationRequest;
+import net.skhu.tastyinventory_be.controller.user.dto.request.AuthorizationRequest;
+import net.skhu.tastyinventory_be.controller.user.dto.response.LoginResponseDto;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.exception.model.OAuth2RequestFailedException;
@@ -60,11 +61,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authorize")
-    public BaseResponse authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
+    public BaseResponse<LoginResponseDto> authenticationUsernamePassword(@Valid @RequestBody AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authorizationRequest.getUsername(), authorizationRequest.getPassword()));
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         generateTokenCookie(userDetails, request, response);
-        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS);
+        final LoginResponseDto data = LoginResponseDto.of(userDetails.getUsername());
+        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
     @PostMapping("/logout")
@@ -75,13 +77,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/oauth2/authorize")
-    public BaseResponse authenticationSocial(
+    public BaseResponse<LoginResponseDto> authenticationSocial(
             @RequestParam(name = "user_state") String state,
             HttpServletRequest request, HttpServletResponse response
     ) {
         UserDetails userDetails = inMemoryOAuth2UserDetailsRepository.deleteUserDetails(state);
         generateTokenCookie(userDetails, request, response);
-        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS);
+        final LoginResponseDto data = LoginResponseDto.of(userDetails.getUsername());
+        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
     @GetMapping("/oauth2/authorize/{provider}")
