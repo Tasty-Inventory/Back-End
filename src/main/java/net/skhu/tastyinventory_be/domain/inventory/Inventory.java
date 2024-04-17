@@ -27,11 +27,16 @@ public class Inventory {
 
     private String imageUrl;
 
-//    @OneToMany(mappedBy = "inventory")
+    //    @OneToMany(mappedBy = "inventory")
 //    private Set<Recipe> recipes = new HashSet<>();
 //
 //    @OneToMany(mappedBy = "inventory")
 //    private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
+    public void update(String name, String unit) {
+        this.name = name;
+        this.unit = unit;
+        this.imageUrl = imageUrl;
+    }
 
 
     @Builder
