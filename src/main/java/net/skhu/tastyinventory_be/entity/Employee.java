@@ -30,6 +30,6 @@ public class Employee {
 
     String note; // 특이사항
 
-    @OneToMany
-    List<Schedule> schedules = new ArrayList<>();
+   @OneToMany
+   List<Schedule> schedules = new ArrayList<>();
 }
