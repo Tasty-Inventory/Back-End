@@ -64,7 +64,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("{id}")
+    @PatchMapping("{id}")
     public ResponseEntity<String> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
@@ -74,16 +74,37 @@ public class EmployeeController {
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
 
-            employee.setName(employeeEdit.getName());
-            employee.setRrn(employeeEdit.getRrn());
-            employee.setPhoneNumber(employeeEdit.getPhoneNumber());
-            employee.setEmail(employeeEdit.getEmail());
-            employee.setAddress(employeeEdit.getAddress());
-            employee.setPosition(employeeEdit.getPosition());
-            employee.setHireDate(employeeEdit.getHireDate());
-            employee.setEmploymentStatus(employeeEdit.getEmploymentStatus());
-            employee.setBankAccount(employeeEdit.getBankAccount());
-            employee.setNote(employeeEdit.getNote());
+            if (employeeEdit.getName() != null) {
+                employee.setName(employeeEdit.getName());
+            }
+            if (employeeEdit.getRrn() != null) {
+                employee.setRrn(employeeEdit.getRrn());
+            }
+            if (employeeEdit.getPhoneNumber() != null) {
+                employee.setPhoneNumber(employeeEdit.getPhoneNumber());
+            }
+            if (employeeEdit.getEmail() != null) {
+                employee.setEmail(employeeEdit.getEmail());
+            }
+            if (employeeEdit.getAddress() != null) {
+                employee.setAddress(employeeEdit.getAddress());
+            }
+            if (employeeEdit.getPosition() != null) {
+                employee.setPosition(employeeEdit.getPosition());
+            }
+            if (employeeEdit.getHireDate() != null) {
+                employee.setHireDate(employeeEdit.getHireDate());
+            }
+            if (employeeEdit.getEmploymentStatus() != null) {
+                employee.setEmploymentStatus(employeeEdit.getEmploymentStatus());
+            }
+            if (employeeEdit.getBankAccount() != null) {
+                employee.setBankAccount(employeeEdit.getBankAccount());
+            }
+            if (employeeEdit.getNote() != null) {
+                employee.setNote(employeeEdit.getNote());
+            }
+
 
             employeeService.save(employee);
             return ResponseEntity.ok("직원 정보가 수정되었습니다.");
