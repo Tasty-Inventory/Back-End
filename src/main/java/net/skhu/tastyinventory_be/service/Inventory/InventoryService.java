@@ -31,7 +31,10 @@ public class InventoryService {
     }
     @Transactional
     public Long update(Long id, InventoryUpdateRequestDto requestDto) {
-        Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-        return new InventoryResponseDto(entity);
+        Inventory inventory = inventoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Inventory not found with id: " + id));
+
+        inventory.update(requestDto.getName(), requestDto.getUnit());
+        return inventory.getId();
     }
 }

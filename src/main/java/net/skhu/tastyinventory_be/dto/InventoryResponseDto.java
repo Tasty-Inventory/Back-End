@@ -1,6 +1,5 @@
 package net.skhu.tastyinventory_be.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
 
