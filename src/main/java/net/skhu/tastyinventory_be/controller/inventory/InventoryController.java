@@ -31,4 +31,12 @@ public class InventoryController {
     public Inventory getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
         return inventoryService.findById(inventoryId);
     }
+    @GetMapping
+    public List<Inventory> search(@RequestParam(value = "srchText", required = false) String srchText) {
+        if (srchText != null && !srchText.isEmpty()) {
+            return inventoryService.searchByName(srchText);
+        } else {
+            return inventoryService.findAll();
+        }
+    }
 }

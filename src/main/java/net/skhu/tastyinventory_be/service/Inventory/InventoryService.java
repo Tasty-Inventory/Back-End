@@ -37,4 +37,7 @@ public class InventoryService {
         inventory.update(requestDto.getName(), requestDto.getUnit());
         return inventory.getId();
     }
+    public List<Inventory> searchByName(String searchText) {
+        return inventoryRepository.findByNameContaining(searchText);
+    }
 }
