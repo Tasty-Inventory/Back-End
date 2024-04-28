@@ -18,7 +18,6 @@ public class Menu extends BaseEntity {
 
     private Long price;
 
-    @Column(nullable = false)
     private String image;
 
     @Builder
@@ -26,5 +25,10 @@ public class Menu extends BaseEntity {
         this.name = name;
         this.price = price;
         this.image = image;
+    }
+
+    public void update(String name, Long price) {
+        this.name = name;
+        this.price = price;
     }
 }
