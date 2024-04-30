@@ -3,13 +3,9 @@ package net.skhu.tastyinventory_be.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.skhu.tastyinventory_be.entity.DayOfWeek;
-import net.skhu.tastyinventory_be.entity.MonthWeek;
-import net.skhu.tastyinventory_be.entity.Salary;
-import net.skhu.tastyinventory_be.entity.Schedule;
-import net.skhu.tastyinventory_be.exception.model.ScheduleEdit;
-import net.skhu.tastyinventory_be.service.SalaryResponseDto;
-import net.skhu.tastyinventory_be.service.ScheduleResponseDto;
+import net.skhu.tastyinventory_be.entity.*;
+import net.skhu.tastyinventory_be.controller.dto.ScheduleEdit;
+import net.skhu.tastyinventory_be.controller.dto.ScheduleResponseDto;
 import net.skhu.tastyinventory_be.service.ScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -39,20 +35,21 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createOrUpdateSchedule(@Valid @RequestBody ScheduleEdit scheduleEdit, BindingResult bindingResult, Model model) {
+    public ResponseEntity<String> createSchedule(@Valid @RequestBody ScheduleSave scheduleSave, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
         }
 
-        Schedule schedule = new Schedule();
-        schedule.setTimeSlot(scheduleEdit.getTimeSlot());
-        schedule.setDayOfWeek(DayOfWeek.valueOf(scheduleEdit.getDayOfWeek()));
-        schedule.setMonthWeek(MonthWeek.valueOf(scheduleEdit.getMonthWeek()));
-        // schedule.setIsActive(scheduleEdit.getIsActive());
+        return ResponseEntity.created("스케줄 정보 등록", scheduleService.saveSchedule(scheduleSave));
+    }
 
-        scheduleService.save(schedule);
+    @PatchMapping
+    public ResponseEntity<String> updateSchedule(@Valid @RequestBody ScheduleEdit scheduleEdit, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
+        }
 
-        return ResponseEntity.ok("스케줄 정보 등록/수정");
+        return ResponseEntity.ok("스케줄 정보 수정");
     }
 
     @DeleteMapping("{id}")

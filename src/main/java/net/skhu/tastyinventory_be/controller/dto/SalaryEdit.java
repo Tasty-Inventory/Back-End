@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.exception.model;
+package net.skhu.tastyinventory_be.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

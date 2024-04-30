@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.service;
+package net.skhu.tastyinventory_be.controller.dto;
 
 import net.skhu.tastyinventory_be.entity.DayOfWeek;
 import net.skhu.tastyinventory_be.entity.MonthWeek;
@@ -8,17 +8,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ScheduleResponseDto {
 
-    int id;
+
     String TimeSlot;
     DayOfWeek dayOfWeek;
     MonthWeek monthWeek;
-    Boolean isActive;
+    LocalDateTime Date;
     int employeeId;
 
     public static ScheduleResponseDto of(Schedule schedule) {
@@ -27,7 +29,6 @@ public class ScheduleResponseDto {
                 .TimeSlot(schedule.getTimeSlot())
                 .dayOfWeek(schedule.getDayOfWeek())
                 .monthWeek(schedule.getMonthWeek())
-               // .isActive(schedule.getIsActive())
                 .employeeId(schedule.getEmployee().getId())
                 .build();
     }

@@ -1,26 +1,35 @@
 package net.skhu.tastyinventory_be.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+
+
 @Entity
+@Data
+@NoArgsConstructor // 파라미터가 없는 디폴트 생성자를 자동으로 생성
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "scheduleId")
-    int id;
-    String TimeSlot;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    DayOfWeek dayOfWeek;
+    private int blockId;
 
-    @Enumerated(EnumType.STRING)
-    MonthWeek monthWeek;
+    private LocalDateTime date;
 
-    // Boolean isActive;
+    @Enumerated(value = EnumType.STRING)
+    private DayOfWeek dayOfWeek;
 
-    @ManyToOne
-    @JoinColumn(name = "employeeId")
-    Employee employee;
+    @Builder
+    public Schedule(int blockId, LocalDateTime date){
+        this.blockId=blockId;
+        this.date = date;
+        this.dayOfWeek = date.getDayOfWeek();
+    }
+
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
+    }
 }

@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.entity.Employee;
-import net.skhu.tastyinventory_be.service.EmployeeResponseDto;
+import net.skhu.tastyinventory_be.controller.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import net.skhu.tastyinventory_be.exception.model.EmployeeEdit;
+import net.skhu.tastyinventory_be.controller.dto.EmployeeEdit;
 
 import java.util.List;
 import java.util.Optional;

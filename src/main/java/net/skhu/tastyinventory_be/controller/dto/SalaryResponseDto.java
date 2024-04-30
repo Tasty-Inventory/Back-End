@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.service;
+package net.skhu.tastyinventory_be.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

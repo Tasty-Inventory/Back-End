@@ -1,6 +1,7 @@
 package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
+import net.skhu.tastyinventory_be.controller.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.entity.Employee;
 import net.skhu.tastyinventory_be.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
