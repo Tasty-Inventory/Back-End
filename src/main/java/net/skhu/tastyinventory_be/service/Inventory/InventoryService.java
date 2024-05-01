@@ -31,6 +31,9 @@ public class InventoryService {
                 new EntityNotFoundException("Inventory not found with id: " + inventoryId));
     }
 
+    public List<Inventory> searchByName(String searchText) {
+        return inventoryRepository.findByNameContaining(searchText);
+    }
     @Transactional
     public void update(Long id, InventoryUpdateRequestDto requestDto) {
         Inventory inventory = inventoryRepository.findById(id)
@@ -44,5 +47,6 @@ public class InventoryService {
                 .orElseThrow(() -> new EntityNotFoundException("Inventory not found with id: " + id));
         inventoryRepository.delete(inventory);
     }
+
 
 }

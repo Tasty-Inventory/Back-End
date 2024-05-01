@@ -34,9 +34,14 @@ public class InventoryController {
     public Inventory getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
         return inventoryService.findById(inventoryId);
     }
-
-    // net.skhu.tastyinventory_be.controller.inventory.InventoryController 클래스 내부
-
+    @GetMapping
+    public List<Inventory> search(@RequestParam(value = "srchText", required = false) String srchText) {
+        if (srchText != null && !srchText.isEmpty()) {
+            return inventoryService.searchByName(srchText);
+        } else {
+            return inventoryService.findAll();
+        }
+    }
     @PutMapping("/{inventoryId}")
     public BaseResponse<?> updateInventory(@PathVariable Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {
         inventoryService.update(inventoryId, requestDto);
@@ -48,6 +53,5 @@ public class InventoryController {
         inventoryService.delete(inventoryId);
         return BaseResponse.success(SuccessCode.DELETE_SUCCESS);
     }
-
 
 }
