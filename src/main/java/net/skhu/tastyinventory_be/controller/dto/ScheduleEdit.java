@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class ScheduleEdit {
-
+    long id;
 
     String timeSlot;
-    String dayOfWeek;
     String monthWeek;
+    String dayOfWeek;
     long employeeId;
 }

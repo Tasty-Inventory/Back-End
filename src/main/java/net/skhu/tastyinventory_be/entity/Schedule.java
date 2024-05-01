@@ -28,7 +28,6 @@ public class Schedule {
         this.date = date;
         this.dayOfWeek = date.getDayOfWeek();
     }
-
     public void setBlockId(int blockId) {
         this.blockId = blockId;
     }
