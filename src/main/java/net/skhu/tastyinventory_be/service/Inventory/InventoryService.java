@@ -8,6 +8,7 @@ import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
 import net.skhu.tastyinventory_be.dto.InventoryResponseDto;
 import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
 import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,9 +30,19 @@ public class InventoryService {
         return inventoryRepository.findById(inventoryId).orElseThrow(() ->
                 new EntityNotFoundException("Inventory not found with id: " + inventoryId));
     }
+
     @Transactional
-    public Long update(Long id, InventoryUpdateRequestDto requestDto) {
-        Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-        return new InventoryResponseDto(entity);
+    public void update(Long id, InventoryUpdateRequestDto requestDto) {
+        Inventory inventory = inventoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Inventory not found with id: " + id));
+        inventory.update(requestDto.getName(), requestDto.getUnit(), requestDto.getImageUrl());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Inventory inventory = inventoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Inventory not found with id: " + id));
+        inventoryRepository.delete(inventory);
+    }
+
 }

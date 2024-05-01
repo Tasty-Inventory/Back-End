@@ -15,6 +15,9 @@ public enum SuccessCode {
     RE_ISSUE_TOKEN_SUCCESS(HttpStatus.OK, "토큰 재발급을 성공했습니다"),
     GET_USER_INFO_SUCCESS(HttpStatus.OK, "사용자 정보 조회에 성공했습니다"),
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
+    UPDATE_SUCCESS(HttpStatus.OK, "업데이트 성공"),
+    DELETE_SUCCESS(HttpStatus.OK, "삭제 성공"),
+
 
     /**
      * 201 CREATED

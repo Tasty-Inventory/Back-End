@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
 import net.skhu.tastyinventory_be.domain.recipe.Recipe;
+import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,18 +34,12 @@ public class Inventory {
 //
 //    @OneToMany(mappedBy = "inventory")
 //    private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
-    public void update(String name, String unit) {
+    // net.skhu.tastyinventory_be.domain.inventory.Inventory 클래스 내부
+
+    public void update(String name, String unit, String imageUrl) {
         this.name = name;
         this.unit = unit;
         this.imageUrl = imageUrl;
     }
 
-
-    @Builder
-    public Inventory(String name, String unit, String imageUrl) {   //, Set<InventoryVolume> inventoryVolumes
-        this.name = name;
-        this.unit = unit;
-        this.imageUrl = imageUrl;
-//        this.inventoryVolumes = inventoryVolumes != null ? inventoryVolumes : new HashSet<>();
-    }
 }

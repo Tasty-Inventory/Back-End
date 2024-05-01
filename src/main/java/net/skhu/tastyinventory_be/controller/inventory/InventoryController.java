@@ -2,8 +2,11 @@ package net.skhu.tastyinventory_be.controller.inventory;
 
 import lombok.RequiredArgsConstructor;
 
+import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
 import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
+import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
+import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.Inventory.InventoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,4 +34,20 @@ public class InventoryController {
     public Inventory getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
         return inventoryService.findById(inventoryId);
     }
+
+    // net.skhu.tastyinventory_be.controller.inventory.InventoryController 클래스 내부
+
+    @PutMapping("/{inventoryId}")
+    public BaseResponse<?> updateInventory(@PathVariable Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {
+        inventoryService.update(inventoryId, requestDto);
+        return BaseResponse.success(SuccessCode.UPDATE_SUCCESS);
+    }
+
+    @DeleteMapping("/{inventoryId}")
+    public BaseResponse<?> deleteInventory(@PathVariable Long inventoryId) {
+        inventoryService.delete(inventoryId);
+        return BaseResponse.success(SuccessCode.DELETE_SUCCESS);
+    }
+
+
 }
