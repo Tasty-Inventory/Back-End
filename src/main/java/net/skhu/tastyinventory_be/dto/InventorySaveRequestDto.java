@@ -27,6 +27,7 @@ public class InventorySaveRequestDto {
     }
     public Inventory toEntity(){
         return Inventory.builder()
+                .id(id)
                 .name(name)
                 .unit(unit)
                 .imageUrl(imageUrl)

@@ -1,12 +1,16 @@
 package net.skhu.tastyinventory_be.domain.inventory;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 @Table(name = "inventory")
+@AllArgsConstructor
+@Builder
 @Entity
 public class Inventory {
     @Id

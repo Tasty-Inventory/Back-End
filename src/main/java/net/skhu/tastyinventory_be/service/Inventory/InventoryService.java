@@ -22,6 +22,7 @@ public class InventoryService {
     public Long save(InventorySaveRequestDto requestDto){
         return inventoryRepository.save(requestDto.toEntity()).getId();
     }
+
     public List<Inventory> findAll(){
         return inventoryRepository.findAll();
     }
@@ -40,6 +41,7 @@ public class InventoryService {
                 .orElseThrow(() -> new EntityNotFoundException("Inventory not found with id: " + id));
         inventory.update(requestDto.getName(), requestDto.getUnit(), requestDto.getImageUrl());
     }
+
 
     @Transactional
     public void delete(Long id) {

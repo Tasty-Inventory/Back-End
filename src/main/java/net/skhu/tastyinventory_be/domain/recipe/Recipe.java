@@ -25,13 +25,13 @@ public class Recipe {
 //    private Inventory inventory;
 
     @Column(nullable = false)
-    private Integer usage;  //재료 사용량
+    private Integer usages;  //재료 사용량
 
     @Builder
-    public Recipe(Integer usage) {  //Menu menu, Inventory inventory,
+    public Recipe(Integer usages) {  //Menu menu, Inventory inventory,
 //        this.menu = menu;
 //        this.inventory = inventory;
-        this.usage = usage;
+        this.usages = usages;
     }
 
 }
