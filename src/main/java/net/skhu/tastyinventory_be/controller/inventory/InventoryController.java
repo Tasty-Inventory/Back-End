@@ -43,13 +43,13 @@ public class InventoryController {
         }
     }
     @PutMapping("/{inventoryId}")
-    public BaseResponse<?> updateInventory(@PathVariable Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {
+    public BaseResponse<?> updateInventory(@PathVariable("inventoryId") Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {
         inventoryService.update(inventoryId, requestDto);
         return BaseResponse.success(SuccessCode.UPDATE_SUCCESS);
     }
 
     @DeleteMapping("/{inventoryId}")
-    public BaseResponse<?> deleteInventory(@PathVariable Long inventoryId) {
+    public BaseResponse<?> deleteInventory(@PathVariable("inventoryId") Long inventoryId) {
         inventoryService.delete(inventoryId);
         return BaseResponse.success(SuccessCode.DELETE_SUCCESS);
     }
