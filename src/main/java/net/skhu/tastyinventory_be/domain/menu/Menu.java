@@ -22,8 +22,8 @@ public class Menu {
     @Column(nullable = false)
     private  String name;
 
-//    @OneToMany(mappedBy = "menu")
-//    private Set<Recipe> recipes = new HashSet<>();
+    @OneToMany(mappedBy = "menu")
+    private Set<Recipe> recipes = new HashSet<>();
 
     @Builder
     public Menu(String name) {

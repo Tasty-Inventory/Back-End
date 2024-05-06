@@ -7,7 +7,6 @@ import java.util.List;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-//    Inventory findByName(String name);
     List<Inventory> findByNameContaining(String name);
 
 }

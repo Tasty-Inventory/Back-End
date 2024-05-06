@@ -48,7 +48,7 @@ public class InventoryVolume {
     @Column(nullable = false)
     private Integer sunOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
 
