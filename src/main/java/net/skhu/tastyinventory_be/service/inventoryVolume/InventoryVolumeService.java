@@ -13,8 +13,7 @@ import static net.skhu.tastyinventory_be.exception.ErrorCode.REQUEST_VALIDATION_
 @RequiredArgsConstructor
 @Service
 public class InventoryVolumeService {
-    
-    @Autowired  // 어노테이션 확인
+
     private final InventoryVolumeRepository inventoryVolumeRepository;
 
     public InventoryVolume create(InventoryVolumeRequestDto requestDto) {
@@ -29,7 +28,7 @@ public class InventoryVolumeService {
 
     public InventoryVolume findById(Long id) {
         return inventoryVolumeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(REQUEST_VALIDATION_EXCEPTION, "Inventory volume not found with id: "));    //에러 코드 맞는지 확인
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다 id = " + id));    //에러 코드 맞는지 확인
     }
 
 }

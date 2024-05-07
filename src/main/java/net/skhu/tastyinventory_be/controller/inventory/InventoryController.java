@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
+import net.skhu.tastyinventory_be.dto.InventoryResponseDto;
 import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
 import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/inventory")
+@RequestMapping("/inventory")
 @RestController
 public class InventoryController {
 
@@ -31,9 +32,11 @@ public class InventoryController {
     }
 
     @GetMapping("/{inventoryId}")
-    public Inventory getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
-        return inventoryService.findById(inventoryId);
+    public BaseResponse<InventoryResponseDto> getInventoryById(@PathVariable("inventoryId") Long inventoryId) {
+        final InventoryResponseDto data = inventoryService.findById(inventoryId);
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
+
     @GetMapping("/search")
     public List<Inventory> search(@RequestParam(value = "srchText", required = false) String srchText) {
         if (srchText != null && !srchText.isEmpty()) {

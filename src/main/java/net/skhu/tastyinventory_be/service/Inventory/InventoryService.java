@@ -27,14 +27,16 @@ public class InventoryService {
         return inventoryRepository.findAll();
     }
 
-    public Inventory findById(Long inventoryId) {
-        return inventoryRepository.findById(inventoryId).orElseThrow(() ->
+    public InventoryResponseDto findById(Long inventoryId) {
+        Inventory inventory = inventoryRepository.findById(inventoryId).orElseThrow(() ->
                 new EntityNotFoundException("Inventory not found with id: " + inventoryId));
+        return InventoryResponseDto.from(inventory);
     }
 
     public List<Inventory> searchByName(String searchText) {
         return inventoryRepository.findByNameContaining(searchText);
     }
+
     @Transactional
     public void update(Long id, InventoryUpdateRequestDto requestDto) {
         Inventory inventory = inventoryRepository.findById(id)
