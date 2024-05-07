@@ -42,7 +42,6 @@ public class InventoryService {
         inventory.update(requestDto.getName(), requestDto.getUnit(), requestDto.getImageUrl());
     }
 
-
     @Transactional
     public void delete(Long id) {
         Inventory inventory = inventoryRepository.findById(id)
