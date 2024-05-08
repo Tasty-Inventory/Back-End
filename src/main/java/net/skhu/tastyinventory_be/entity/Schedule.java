@@ -15,7 +15,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int blockId;
+    private long blockId;
 
     private LocalDateTime date;
 
@@ -26,9 +26,9 @@ public class Schedule {
     public Schedule(int blockId, LocalDateTime date){
         this.blockId=blockId;
         this.date = date;
-        this.dayOfWeek = date.getDayOfWeek();
+        this.dayOfWeek = date.getDayOfWeek(); // date에서 요일 정보 추출해 dayOfWeek에 저장
     }
-    public void setBlockId(int blockId) {
+    public void setBlockId(long blockId) {
         this.blockId = blockId;
     }
 }

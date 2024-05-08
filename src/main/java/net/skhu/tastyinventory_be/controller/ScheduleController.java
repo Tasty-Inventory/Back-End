@@ -35,12 +35,12 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createSchedule(@Valid @RequestBody ScheduleSave scheduleSave, BindingResult bindingResult, Model model) {
+    public ResponseEntity<String> createSchedule(@Valid @RequestBody ScheduleCreate scheduleCreate, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
         }
 
-        return ResponseEntity.created("스케줄 정보 등록", scheduleService.saveSchedule(scheduleSave));
+        return ResponseEntity.created("스케줄 정보 등록", scheduleService.saveSchedule(schedule));
     }
 
     @PatchMapping

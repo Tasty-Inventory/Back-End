@@ -1,12 +1,11 @@
 package net.skhu.tastyinventory_be.controller.dto;
 
-import net.skhu.tastyinventory_be.entity.DayOfWeek;
 import net.skhu.tastyinventory_be.entity.Schedule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 @Builder
@@ -14,19 +13,16 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ScheduleResponseDto {
-
-    String TimeSlot;
+    long id;
     DayOfWeek dayOfWeek;
     int blockId;
     LocalDateTime date;
-    int employeeId;
 
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()
                 .id(schedule.getId())
                 .dayOfWeek(schedule.getDayOfWeek())
                 .date(schedule.getDate())
-                .employeeId(schedule.getEmployee().getId())
                 .build();
     }
 }
