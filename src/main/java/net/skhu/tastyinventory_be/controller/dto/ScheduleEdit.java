@@ -6,8 +6,6 @@ import lombok.Data;
 public class ScheduleEdit {
     long id;
 
-    String timeSlot;
-    String monthWeek;
     String dayOfWeek;
     long employeeId;
 }

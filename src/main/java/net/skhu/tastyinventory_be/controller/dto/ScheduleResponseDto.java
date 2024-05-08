@@ -24,9 +24,8 @@ public class ScheduleResponseDto {
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()
                 .id(schedule.getId())
-                .TimeSlot(schedule.getTimeSlot())
                 .dayOfWeek(schedule.getDayOfWeek())
-                .monthWeek(schedule.getMonthWeek())
+                .date(schedule.getDate())
                 .employeeId(schedule.getEmployee().getId())
                 .build();
     }
