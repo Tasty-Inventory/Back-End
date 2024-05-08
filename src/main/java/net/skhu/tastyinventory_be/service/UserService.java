@@ -46,7 +46,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<OAuth2AccountDto> getOAuth2Account(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (!optionalUser.isPresent() || optionalUser.get().getSocial() == null) {
+        if (optionalUser.isEmpty() || optionalUser.get().getSocial() == null) {
             return Optional.empty();
         }
         return Optional.of(optionalUser.get().getSocial().toDto());
