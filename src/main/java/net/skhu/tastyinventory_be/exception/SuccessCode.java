@@ -22,6 +22,7 @@ public enum SuccessCode {
      */
     SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입이 완료됐습니다."),
     SIGNOUT_SUCCESS(HttpStatus.CREATED, "로그아웃이 완료됐습니다."),
+    INVENTORY_CREATE_SUCCESS(HttpStatus.CREATED, "재고 생성을 완료하였습니다"),
 
     /**
      * 204 NO_CONTENT
