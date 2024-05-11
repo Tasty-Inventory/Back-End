@@ -16,6 +16,7 @@ public enum SuccessCode {
     GET_USER_INFO_SUCCESS(HttpStatus.OK, "사용자 정보 조회에 성공했습니다"),
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
     LOGOUT_SUCCESS(HttpStatus.OK, "로그아웃에 성공했습니다."),
+    INVENTORY_GET_SUCCESS(HttpStatus.OK, "재고 조회에 성공했습니다."),
 
     /**
      * 201 CREATED
