@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.domain.employee.Employee;
 import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
+import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
+import net.skhu.tastyinventory_be.exception.model.NotFoundException;
 import net.skhu.tastyinventory_be.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -62,7 +64,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<String> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult) {
+    public ResponseEntity<?> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
         }
@@ -104,7 +106,7 @@ public class EmployeeController {
 
 
             employeeService.save(employee);
-            return ResponseEntity.ok("직원 정보가 수정되었습니다.");
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_UPDATE_SUCCESS));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -112,12 +114,10 @@ public class EmployeeController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable(name ="id") Long id) {
-        Optional<Employee> employeeOptional = employeeService.findById(id);
-        if (employeeOptional.isPresent()) {
-            employeeService.deleteById(id);
-            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_DELETE_SUCCESS));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        employeeService.findById(id).orElseThrow(
+                () -> new NotFoundException(ErrorCode.NOT_FOUND_USER_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()
+        ));
+        employeeService.deleteById(id);
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_DELETE_SUCCESS));
     }
 }

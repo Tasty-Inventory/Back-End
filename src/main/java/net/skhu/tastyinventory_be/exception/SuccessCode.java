@@ -30,7 +30,8 @@ public enum SuccessCode {
      * 204 NO_CONTENT
      */
     UNLINK_SUCCESS(HttpStatus.NO_CONTENT, "사용자 탈퇴에 성공했습니다"),
-    EMPLOYEE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "직원 삭제에 성공했습니다")
+    EMPLOYEE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "직원 삭제에 성공했습니다"),
+    EMPLOYEE_UPDATE_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     ;
 
 
