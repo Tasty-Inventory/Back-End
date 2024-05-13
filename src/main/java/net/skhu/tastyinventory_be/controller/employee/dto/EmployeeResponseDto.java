@@ -1,7 +1,7 @@
-package net.skhu.tastyinventory_be.controller.dto;
+package net.skhu.tastyinventory_be.controller.employee.dto;
 
 import lombok.*;
-import net.skhu.tastyinventory_be.entity.Employee;
+import net.skhu.tastyinventory_be.domain.employee.Employee;
 
 
 @Builder

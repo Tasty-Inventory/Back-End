@@ -1,16 +1,16 @@
-package net.skhu.tastyinventory_be.controller;
+package net.skhu.tastyinventory_be.controller.salary;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.skhu.tastyinventory_be.entity.Salary;
-import net.skhu.tastyinventory_be.controller.dto.SalaryResponseDto;
+import net.skhu.tastyinventory_be.domain.salary.Salary;
+import net.skhu.tastyinventory_be.controller.salary.dto.SalaryResponseDto;
 import net.skhu.tastyinventory_be.service.SalaryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import net.skhu.tastyinventory_be.controller.dto.SalaryEdit;
+import net.skhu.tastyinventory_be.controller.salary.dto.SalaryEdit;
 
 import java.util.List;
 import java.util.Optional;

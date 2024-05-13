@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.entity;
+package net.skhu.tastyinventory_be.domain.employee;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,6 +30,6 @@ public class Employee {
 
     String note; // 특이사항
 
-   @OneToMany
-   List<Schedule> schedules = new ArrayList<>();
+//   @OneToMany
+//   List<Schedule> schedules = new ArrayList<>();
 }

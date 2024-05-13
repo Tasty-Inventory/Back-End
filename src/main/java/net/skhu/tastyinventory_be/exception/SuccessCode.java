@@ -24,11 +24,13 @@ public enum SuccessCode {
     SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입이 완료됐습니다."),
     SIGNOUT_SUCCESS(HttpStatus.CREATED, "로그아웃이 완료됐습니다."),
     INVENTORY_CREATE_SUCCESS(HttpStatus.CREATED, "재고 생성을 완료하였습니다"),
+    EMPLOYEE_CREATE_SUCCESS(HttpStatus.CREATED, "직원 생성이 완료되었습니다"),
 
     /**
      * 204 NO_CONTENT
      */
     UNLINK_SUCCESS(HttpStatus.NO_CONTENT, "사용자 탈퇴에 성공했습니다"),
+    EMPLOYEE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "직원 삭제에 성공했습니다")
     ;
 
 

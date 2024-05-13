@@ -1,16 +1,17 @@
-package net.skhu.tastyinventory_be.controller;
+package net.skhu.tastyinventory_be.controller.employee;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.skhu.tastyinventory_be.entity.Employee;
-import net.skhu.tastyinventory_be.controller.dto.EmployeeResponseDto;
+import net.skhu.tastyinventory_be.common.dto.BaseResponse;
+import net.skhu.tastyinventory_be.domain.employee.Employee;
+import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
+import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import net.skhu.tastyinventory_be.controller.dto.EmployeeEdit;
+import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeEdit;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +26,13 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeResponseDto>> findAll() {
-        return ResponseEntity.ok(employeeService.getEmployee());
+    public ResponseEntity<BaseResponse<List<EmployeeResponseDto>>> findAll() {
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, employeeService.getEmployee()));
     }
 
 
     @PostMapping
-    public ResponseEntity<String> createEmployee(@Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
-        }
+    public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeEdit employeeEdit) {
 
         Employee employee = new Employee();
         employee.setName(employeeEdit.getName());
@@ -50,15 +48,14 @@ public class EmployeeController {
 
         employeeService.save(employee);
 
-        List<EmployeeResponseDto> updatedEmployeeList = employeeService.getEmployee();
-        return ResponseEntity.ok("직원이 생성되었습니다.");
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_CREATE_SUCCESS));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeResponseDto> getEmployeeDetails(@PathVariable(name ="id") Long id) {
+    public ResponseEntity<?> getEmployeeDetails(@PathVariable(name ="id") Long id) {
         EmployeeResponseDto employee = employeeService.getEmployeeDetails(id);
         if (employee != null) {
-            return ResponseEntity.ok(employee);
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, employee));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -114,11 +111,11 @@ public class EmployeeController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable(name ="id") Long id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable(name ="id") Long id) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
             employeeService.deleteById(id);
-            return ResponseEntity.ok("직원 정보 삭제");
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_DELETE_SUCCESS));
         } else {
             return ResponseEntity.notFound().build();
         }

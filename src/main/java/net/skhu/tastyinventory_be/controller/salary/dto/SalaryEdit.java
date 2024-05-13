@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.controller.dto;
+package net.skhu.tastyinventory_be.controller.salary.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

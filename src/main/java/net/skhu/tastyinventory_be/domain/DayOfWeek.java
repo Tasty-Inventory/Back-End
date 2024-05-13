@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.entity;
+package net.skhu.tastyinventory_be.domain;
 
 public enum DayOfWeek {
     MONDAY,

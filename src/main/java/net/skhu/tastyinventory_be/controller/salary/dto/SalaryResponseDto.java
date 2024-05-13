@@ -1,10 +1,10 @@
-package net.skhu.tastyinventory_be.controller.dto;
+package net.skhu.tastyinventory_be.controller.salary.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import net.skhu.tastyinventory_be.entity.Salary;
+import net.skhu.tastyinventory_be.domain.salary.Salary;
 
 @Builder
 @Data

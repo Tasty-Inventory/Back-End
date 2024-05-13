@@ -1,9 +1,9 @@
 package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
-import net.skhu.tastyinventory_be.controller.dto.SalaryResponseDto;
-import net.skhu.tastyinventory_be.entity.Salary;
-import net.skhu.tastyinventory_be.repository.SalaryRepository;
+import net.skhu.tastyinventory_be.controller.salary.dto.SalaryResponseDto;
+import net.skhu.tastyinventory_be.domain.salary.Salary;
+import net.skhu.tastyinventory_be.domain.salary.SalaryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
