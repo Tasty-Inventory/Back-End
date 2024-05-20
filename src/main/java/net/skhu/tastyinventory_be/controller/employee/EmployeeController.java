@@ -64,10 +64,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<?> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body("입력값이 올바르지 않습니다.");
-        }
+    public ResponseEntity<?> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit) {
 
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
@@ -106,11 +103,14 @@ public class EmployeeController {
 
 
             employeeService.save(employee);
-            return ResponseEntity.ok("직원 정보가 수정되었습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
+
+                return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_PATCH_SUCCESS));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
+            }
         }
-    }
+
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable(name ="id") Long id) {
