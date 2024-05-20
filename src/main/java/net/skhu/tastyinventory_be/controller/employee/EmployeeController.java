@@ -8,8 +8,8 @@ import net.skhu.tastyinventory_be.domain.employee.Employee;
 import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
-import net.skhu.tastyinventory_be.exception.model.NotFoundException;
 import net.skhu.tastyinventory_be.service.EmployeeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -106,18 +106,21 @@ public class EmployeeController {
 
 
             employeeService.save(employee);
-            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_UPDATE_SUCCESS));
+            return ResponseEntity.ok("직원 정보가 수정되었습니다.");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable(name ="id") Long id) {
-        employeeService.findById(id).orElseThrow(
-                () -> new NotFoundException(ErrorCode.NOT_FOUND_USER_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()
-        ));
-        employeeService.deleteById(id);
-        return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_DELETE_SUCCESS));
+        Optional<Employee> employeeOptional = employeeService.findById(id);
+        if (employeeOptional.isPresent()) {
+            employeeService.deleteById(id);
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_DELETE_SUCCESS));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
+        }
     }
 }
+
