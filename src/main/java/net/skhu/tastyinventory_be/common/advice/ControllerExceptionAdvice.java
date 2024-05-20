@@ -40,21 +40,21 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingRequestHeaderException.class)
     protected BaseResponse handleMissingRequestHeaderException(final MissingRequestHeaderException e) {
-        log.error("Missing Request Header: {}", e.getMessage(), e);
+        log.error("Missing Request Header: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.VALIDATION_REQUEST_HEADER_MISSING_EXCEPTION, String.format("%s (%s)", ErrorCode.VALIDATION_REQUEST_HEADER_MISSING_EXCEPTION.getMessage(), e.getHeaderName()));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
     protected BaseResponse handleMissingRequestParameterException(final MissingServletRequestParameterException e) {
-        log.error("Missing Request Parameter: {}", e.getMessage(), e);
+        log.error("Missing Request Parameter: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.VALIDATION_REQUEST_PARAMETER_MISSING_EXCEPTION, String.format("%s (%s)", ErrorCode.VALIDATION_REQUEST_PARAMETER_MISSING_EXCEPTION.getMessage(), e.getParameterName()));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected BaseResponse handleHttpRequestMethodNotSupportedException(final HttpRequestMethodNotSupportedException e) {
-        log.error("Http Request Method Not Supported: {}", e.getMessage(), e);
+        log.error("Http Request Method Not Supported: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.REQUEST_METHOD_VALIDATION_EXCEPTION, e.getMessage());
     }
 
@@ -64,7 +64,7 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     protected BaseResponse badCredentialsException(final BadCredentialsException e) {
-        log.error("Bad Credentials: {}", e.getMessage(), e);
+        log.error("Bad Credentials: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.AUTHORIZE_FAILED_EXCEPTION, ErrorCode.AUTHORIZE_FAILED_EXCEPTION.getMessage());
     }
 
@@ -74,7 +74,7 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.PAYLOAD_TOO_LARGE)
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public BaseResponse fileSizeLimitExceeded(final MaxUploadSizeExceededException e) {
-        log.error("File Size Limit Exceeded: {}", e.getMessage(), e);
+        log.error("File Size Limit Exceeded: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.MAX_UPLOAD_SIZE_EXCEED_EXCEPTION, e.getMessage());
     }
 
@@ -84,7 +84,7 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected BaseResponse handleException(final Exception e, final HttpServletRequest request) throws IOException {
-        log.error("Internal Server Error: {}", e.getMessage(), e);
+        log.error("Internal Server Error: {}", e.getMessage());
         return BaseResponse.error(ErrorCode.INTERNAL_SERVER_ERROR);
     }
 
@@ -93,7 +93,7 @@ public class ControllerExceptionAdvice {
      */
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<BaseResponse> handleGroomException(CustomException e) {
-        log.error("Custom Exception: {}", e.getMessage(), e);
+        log.error("Custom Exception: {}", e.getMessage());
         return ResponseEntity.status(e.getHttpStatus())
                 .body(BaseResponse.error(e.getErrorCode(), e.getMessage()));
     }
