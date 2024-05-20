@@ -1,6 +1,8 @@
 package net.skhu.tastyinventory_be.domain.employee;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,6 +28,7 @@ public class Employee {
     Date hireDate;
 
     String employmentStatus;
+
     String bankAccount;
 
     String note; // 특이사항
