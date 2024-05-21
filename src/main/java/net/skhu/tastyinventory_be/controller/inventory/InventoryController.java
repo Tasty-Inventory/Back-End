@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/inventory")
@@ -27,7 +29,6 @@ public class InventoryController {
             @RequestParam("inventoryImage") MultipartFile image
     ) {
         inventoryService.createInventory(name, unit, image);
-
         return BaseResponse.success(SuccessCode.INVENTORY_CREATE_SUCCESS);
     }
 
@@ -35,6 +36,13 @@ public class InventoryController {
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<InventoryResponseDto> findInventory(@PathVariable Long id) {
         final InventoryResponseDto data = inventoryService.findInventory(id);
+        return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<List<InventoryResponseDto>> findAllInventory() {
+        final List<InventoryResponseDto> data = inventoryService.findAllInventory();
         return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
     }
 }

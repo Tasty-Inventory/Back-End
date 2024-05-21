@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class InventoryService {
     private final S3Service s3Service;
@@ -36,5 +40,10 @@ public class InventoryService {
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()));
 
         return InventoryResponseDto.from(inventory);
+    }
+
+    public List<InventoryResponseDto> findAllInventory() {
+        List<Inventory> inventoryList = inventoryRepository.findAll();
+        return inventoryList.stream().map(InventoryResponseDto::from).collect(Collectors.toList());
     }
 }
