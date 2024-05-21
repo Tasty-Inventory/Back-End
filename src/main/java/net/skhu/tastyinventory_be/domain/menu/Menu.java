@@ -26,8 +26,9 @@ public class Menu {
     private Set<Recipe> recipes = new HashSet<>();
 
     @Builder
-    public Menu(String name) {
+    public Menu(String name, Set<Recipe> recipes) {
         this.name = name;
+        this.recipes = recipes;
     }
 
 }
