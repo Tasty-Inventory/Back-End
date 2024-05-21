@@ -3,7 +3,9 @@ package net.skhu.tastyinventory_be.controller.inventory;
 import lombok.RequiredArgsConstructor;
 
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
+import net.skhu.tastyinventory_be.domain.BaseEntity;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
+import net.skhu.tastyinventory_be.dto.InventoryListResponseDto;
 import net.skhu.tastyinventory_be.dto.InventoryResponseDto;
 import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
 import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/inventory")
@@ -22,13 +25,15 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Long save(@RequestBody InventorySaveRequestDto requestDto){
-        return inventoryService.save(requestDto);   // inventoryService 객체 -> requestDto 포함된 데이터 저장 메서드 호출, 데이터 식별자 반환
+    @ResponseStatus(HttpStatus.CREATED)
+    public BaseResponse<Void> save(@RequestBody InventorySaveRequestDto requestDto){
+        inventoryService.save(requestDto);
+        return BaseResponse.success(SuccessCode.INVENTORY_CREATED_SUCCESS);
     }
     @GetMapping
-    public List<Inventory> getAllInventory(){
-        return inventoryService.findAll();
+    public BaseResponse<InventoryListResponseDto> getAllInventory(){
+        final InventoryListResponseDto data = inventoryService.findAll();
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
 
     @GetMapping("/{inventoryId}")
@@ -38,12 +43,18 @@ public class InventoryController {
     }
 
     @GetMapping("/search")
-    public List<Inventory> search(@RequestParam(value = "srchText", required = false) String srchText) {
+    public BaseResponse<List<InventoryResponseDto>> search(@RequestParam(value = "srchText", required = false) String srchText) {
+        List<InventoryResponseDto> responseDtoList;
         if (srchText != null && !srchText.isEmpty()) {
-            return inventoryService.searchByName(srchText);
+            List<Inventory> data = inventoryService.searchByName(srchText);
+            responseDtoList = data.stream()
+                    .map(InventoryResponseDto::from)
+                    .collect(Collectors.toList());
         } else {
-            return inventoryService.findAll();
+            InventoryListResponseDto listResponseDto = inventoryService.findAll();
+            responseDtoList = listResponseDto.getInventories(); // 가정: InventoryListResponseDto에 getInventories() 메소드가 있다고 가정
         }
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, responseDtoList);
     }
     @PutMapping("/{inventoryId}")
     public BaseResponse<?> updateInventory(@PathVariable("inventoryId") Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {

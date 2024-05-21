@@ -16,11 +16,6 @@ public class InventoryResponseDto {
 
 
     public static InventoryResponseDto from(Inventory entity) {
-//        //entity 일부만 사용. 굳이 모든 필드를 가진 생성자 필요X. entity 받아 처리
-//        this.id = entity.getId();
-//        this.name = entity.getName();
-//        this.unit = entity.getUnit();
-//        this.imageUrl = entity.getImageUrl();
         return new InventoryResponseDto(entity.getId(), entity.getName(), entity.getUnit(), entity.getImageUrl());
     }
 }

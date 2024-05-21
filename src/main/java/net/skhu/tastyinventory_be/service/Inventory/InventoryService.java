@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
 import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
+import net.skhu.tastyinventory_be.dto.InventoryListResponseDto;
 import net.skhu.tastyinventory_be.dto.InventoryResponseDto;
 import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
 import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
@@ -19,12 +20,16 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
 
     @Transactional
-    public Long save(InventorySaveRequestDto requestDto){
-        return inventoryRepository.save(requestDto.toEntity()).getId();
+    public Inventory save(InventorySaveRequestDto requestDto){
+        return inventoryRepository.save(requestDto.toEntity());
     }
 
-    public List<Inventory> findAll(){
-        return inventoryRepository.findAll();
+    public InventoryListResponseDto findAll(){
+        List<Inventory> inventories = inventoryRepository.findAll();
+        List<InventoryResponseDto> inventoryResponseDtoList = inventories.stream()
+                .map(InventoryResponseDto::from)
+                .toList();
+        return InventoryListResponseDto.from(inventoryResponseDtoList);
     }
 
     public InventoryResponseDto findById(Long inventoryId) {
