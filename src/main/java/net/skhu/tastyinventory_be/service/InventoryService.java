@@ -37,7 +37,7 @@ public class InventoryService {
 
     public InventoryResponseDto findInventory(Long id) {
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()));
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION, ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()));
 
         return InventoryResponseDto.from(inventory);
     }
