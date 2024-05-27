@@ -46,9 +46,4 @@ public class InventoryService {
         List<Inventory> inventoryList = inventoryRepository.findAll();
         return inventoryList.stream().map(InventoryResponseDto::from).collect(Collectors.toList());
     }
-
-    public List<InventoryResponseDto> findInventoryWithSrchText(String srchText){
-        List<Inventory> inventoryList = inventoryRepository.findAllByNameContaining(srchText);
-        return inventoryList.stream().map(InventoryResponseDto::from).collect(Collectors.toList());
-    }
 }
