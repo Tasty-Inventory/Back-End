@@ -48,6 +48,7 @@ public class SecurityConfigurer {
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers("/csrf-token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users", "/authorize").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/users").authenticated()
                         .anyRequest().permitAll())
                 .exceptionHandling(a -> a
