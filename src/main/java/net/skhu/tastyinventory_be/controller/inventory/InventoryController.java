@@ -25,7 +25,6 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<Void> save(@RequestBody InventorySaveRequestDto requestDto){
         inventoryService.save(requestDto);
         return BaseResponse.success(SuccessCode.INVENTORY_CREATED_SUCCESS);

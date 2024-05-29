@@ -30,10 +30,10 @@ public class Inventory {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Recipe> recipes = new HashSet<>();
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
 
     public void update(String name, String unit, String imageUrl) {
