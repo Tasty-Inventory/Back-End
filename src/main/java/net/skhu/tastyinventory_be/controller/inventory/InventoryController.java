@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -41,8 +42,10 @@ public class InventoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<List<InventoryResponseDto>> findAllInventory() {
-        final List<InventoryResponseDto> data = inventoryService.findAllInventory();
+    public BaseResponse<List<InventoryResponseDto>> findAllByNameContaining(
+            @RequestParam(name = "srchText", required = false) Optional<String> srchText
+    ) {
+        final List<InventoryResponseDto> data = inventoryService.findAllByNameContaining(srchText.orElse(""));
         return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
     }
 }

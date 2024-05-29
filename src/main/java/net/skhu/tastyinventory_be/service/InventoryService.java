@@ -42,8 +42,8 @@ public class InventoryService {
         return InventoryResponseDto.from(inventory);
     }
 
-    public List<InventoryResponseDto> findAllInventory() {
-        List<Inventory> inventoryList = inventoryRepository.findAll();
+    public List<InventoryResponseDto> findAllByNameContaining(String srchText) {
+        List<Inventory> inventoryList = inventoryRepository.findAllByNameContaining(srchText);
         return inventoryList.stream().map(InventoryResponseDto::from).collect(Collectors.toList());
     }
 }
