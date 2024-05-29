@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -33,6 +34,6 @@ public class Employee {
 
     String note; // 특이사항
 
-//   @OneToMany
-//   List<Schedule> schedules = new ArrayList<>();
+    @OneToMany(mappedBy = "employee")
+    private List<Schedule> schedules;
 }

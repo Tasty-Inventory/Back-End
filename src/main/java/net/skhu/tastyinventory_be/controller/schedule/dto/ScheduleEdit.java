@@ -6,7 +6,7 @@ import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 public class ScheduleEdit {
     int id;
 
-
+    private int employeeId;
     private Schedule.DayOfWeek dayOfWeek;
 
 
