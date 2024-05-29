@@ -48,4 +48,11 @@ public class InventoryController {
         final List<InventoryResponseDto> data = inventoryService.findAllByNameContaining(srchText.orElse(""));
         return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public BaseResponse<?> deleteInventory(@PathVariable Long id) {
+        inventoryService.deleteInventory(id);
+        return BaseResponse.success(SuccessCode.INVENTORY_DELETE_SUCCESS);
+    }
 }

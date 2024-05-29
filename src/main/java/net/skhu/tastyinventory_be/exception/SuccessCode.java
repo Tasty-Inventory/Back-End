@@ -35,7 +35,8 @@ public enum SuccessCode {
     SALARY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "급여 삭제에 성공했습니다"),
     EMPLOYEE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     SALARY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "급여 정보 수정이 완료되었습니다"),
-
+    INVENTORY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "재고 삭제에 성공했습니다."),
+    INVENTORY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "재고 수정이 완료되었습니다.")
     ;
 
 
