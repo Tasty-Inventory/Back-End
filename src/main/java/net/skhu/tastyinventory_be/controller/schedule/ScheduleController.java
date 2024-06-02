@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
+import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.controller.schedule.dto.ScheduleEdit;
 import net.skhu.tastyinventory_be.controller.schedule.dto.ScheduleResponseDto;
+import net.skhu.tastyinventory_be.domain.employee.Employee;
 import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
@@ -33,6 +35,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<?> createSchedule(@Valid @RequestBody ScheduleEdit scheduleEdit) {
         Schedule schedule = new Schedule();
+        schedule.setEmployeeId(scheduleEdit.getEmployeeId());
         schedule.setDayOfWeek(scheduleEdit.getDayOfWeek());
         schedule.setTimeSlot(scheduleEdit.getTimeSlot());
 
@@ -48,6 +51,16 @@ public class ScheduleController {
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedule));
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<?> getEmployeeScheduleDetails(@PathVariable(name = "employeeId") Long employeeId) {
+        List<ScheduleResponseDto> schedules = scheduleService.getEmployeeScheduleDetails(employeeId);
+        if (!schedules.isEmpty()) {
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 
@@ -71,13 +84,18 @@ public class ScheduleController {
             scheduleService.save(schedule);
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.SCHEDULE_PATCH_SUCCESS));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_SCHEDULE_EXCEPTION));
         }
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteSchedule(@PathVariable(name = "id") Long id) {
-        // TODO: Implement deleteSchedule method
-        return ResponseEntity.ok(BaseResponse.success(SuccessCode.SCHEDULE_DELETE_SUCCESS));
+    public ResponseEntity<?> deleteSchedule(@PathVariable(name ="id") Long id) {
+        Optional<Schedule> scheduleOptional = scheduleService.findById(id);
+        if (scheduleOptional.isPresent()) {
+            scheduleService.deleteById(id);
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.SCHEDULE_DELETE_SUCCESS));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_SCHEDULE_EXCEPTION));
+        }
     }
 }

@@ -6,10 +6,8 @@ import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 public class ScheduleEdit {
     int id;
 
-
+    Long employeeId;
     private Schedule.DayOfWeek dayOfWeek;
-
-
     private Schedule.TimeSlot timeSlot;
 
 
