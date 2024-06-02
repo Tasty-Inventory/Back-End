@@ -61,8 +61,4 @@ public class EmployeeService {
     public Optional<Employee> findById(Long id) {
         return employeeRepository.findById(id);
     }
-
-    public Employee findById(int employeeId) {
-        return null;
-    }
 }

@@ -2,7 +2,6 @@ package net.skhu.tastyinventory_be.domain.schedule;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
-import net.skhu.tastyinventory_be.domain.employee.Employee;
 
 @Data
 @Entity
@@ -11,14 +10,6 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scheduleId")
     private int id;
-
-    public int getEmployeeId() {
-        return employee.getId();
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -43,6 +34,7 @@ public class Schedule {
         DayOfWeek(String value) {
             this.value = value;
         }
+
     }
 
     @Getter
@@ -65,5 +57,6 @@ public class Schedule {
         TimeSlot(String value) {
             this.value = value;
         }
+
     }
 }

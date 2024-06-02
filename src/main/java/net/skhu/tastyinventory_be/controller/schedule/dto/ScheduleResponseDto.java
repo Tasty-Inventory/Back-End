@@ -11,13 +11,13 @@ import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ScheduleResponseDto {
-    private int employeeId;
+    int id;
     Schedule.DayOfWeek dayOfWeek;
     Schedule.TimeSlot timeSlot;
 
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()
-                .employeeId(schedule.getEmployeeId())
+                .id(schedule.getId())
                 .dayOfWeek(schedule.getDayOfWeek())
                 .timeSlot(schedule.getTimeSlot())
                 .build();
