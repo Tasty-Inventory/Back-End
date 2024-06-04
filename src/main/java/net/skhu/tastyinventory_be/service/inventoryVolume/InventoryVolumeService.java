@@ -3,12 +3,8 @@ package net.skhu.tastyinventory_be.service.inventoryVolume;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolumeRepository;
-import net.skhu.tastyinventory_be.dto.InventoryVolumeRequestDto;
-import net.skhu.tastyinventory_be.exception.model.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.skhu.tastyinventory_be.dto.inventory.InventoryVolumeRequestDto;
 import org.springframework.stereotype.Service;
-
-import static net.skhu.tastyinventory_be.exception.ErrorCode.REQUEST_VALIDATION_EXCEPTION;
 
 @RequiredArgsConstructor
 @Service

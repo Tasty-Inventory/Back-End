@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.dto;
+package net.skhu.tastyinventory_be.dto.inventory;
 
 import lombok.Builder;
 import java.util.List;

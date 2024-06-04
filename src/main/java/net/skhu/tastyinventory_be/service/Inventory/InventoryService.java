@@ -5,11 +5,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
 import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
-import net.skhu.tastyinventory_be.dto.InventoryListResponseDto;
-import net.skhu.tastyinventory_be.dto.InventoryResponseDto;
-import net.skhu.tastyinventory_be.dto.InventorySaveRequestDto;
-import net.skhu.tastyinventory_be.dto.InventoryUpdateRequestDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.skhu.tastyinventory_be.dto.inventory.InventoryListResponseDto;
+import net.skhu.tastyinventory_be.dto.inventory.InventoryResponseDto;
+import net.skhu.tastyinventory_be.dto.inventory.InventorySaveRequestDto;
+import net.skhu.tastyinventory_be.dto.inventory.InventoryUpdateRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
