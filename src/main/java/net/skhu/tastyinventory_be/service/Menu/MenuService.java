@@ -1,11 +1,18 @@
 package net.skhu.tastyinventory_be.service.Menu;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 import net.skhu.tastyinventory_be.domain.menu.MenuRepository;
-import net.skhu.tastyinventory_be.dto.MenuSaveRequestDto;
+
+import net.skhu.tastyinventory_be.dto.menu.MenuListResponseDto;
+import net.skhu.tastyinventory_be.dto.menu.MenuResponseDto;
+import net.skhu.tastyinventory_be.dto.menu.MenuSaveRequestDto;
+import net.skhu.tastyinventory_be.dto.menu.MenuUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -13,7 +20,40 @@ import org.springframework.transaction.annotation.Transactional;
 public class MenuService {
     private final MenuRepository menuRepository;
 
-    public Menu save(MenuSaveRequestDto requestDto){
+    @Transactional
+    public Menu saveMenu(MenuSaveRequestDto requestDto){
         return menuRepository.save(requestDto.toEntity());
+    }
+
+    public MenuListResponseDto findAll(){
+        List<Menu> inventories = menuRepository.findAll();
+        List<MenuResponseDto> menuResponseDtoList = inventories.stream()
+                .map(MenuResponseDto::from)
+                .toList();
+        return MenuListResponseDto.from(menuResponseDtoList);
+    }
+
+    public MenuResponseDto findById(Long menuId) {
+        Menu menu = menuRepository.findById(menuId).orElseThrow(() ->
+                new EntityNotFoundException("Menu not found with id: " + menuId));
+        return MenuResponseDto.from(menu);
+    }
+
+    public List<Menu> searchByName(String searchText) {
+        return menuRepository.findByNameContaining(searchText);
+    }
+
+    @jakarta.transaction.Transactional
+    public void update(Long id, MenuUpdateRequestDto requestDto) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Menu not found with id: " + id));
+        menu.update(requestDto.name());
+    }
+
+    @jakarta.transaction.Transactional
+    public void delete(Long id) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Menu not found with id: " + id));
+        menuRepository.delete(menu);
     }
 }

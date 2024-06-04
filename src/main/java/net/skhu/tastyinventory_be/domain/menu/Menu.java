@@ -30,5 +30,8 @@ public class Menu {
         this.name = name;
         this.recipes = recipes;
     }
+    public void update(String name) {
+        this.name = name;
+    }
 
 }

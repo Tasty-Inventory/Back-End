@@ -55,7 +55,7 @@ public class InventoryController {
         }
         return BaseResponse.success(SuccessCode.GET_SUCCESS, responseDtoList);
     }
-    @PutMapping("/{inventoryId}")
+    @PatchMapping("/{inventoryId}")
     public BaseResponse<?> updateInventory(@PathVariable("inventoryId") Long inventoryId, @RequestBody InventoryUpdateRequestDto requestDto) {
         inventoryService.update(inventoryId, requestDto);
         return BaseResponse.success(SuccessCode.UPDATE_SUCCESS);
