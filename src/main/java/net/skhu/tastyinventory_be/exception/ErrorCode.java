@@ -48,6 +48,7 @@ public enum ErrorCode {
     NOT_FOUND_USER_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
     NOT_FOUND_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 이미지입니다."),
     NOT_FOUND_INVENTORY_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 재고입니다"),
+    NOT_FOUND_MENU_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 메뉴입니다"),
     NOT_FOUND_EMPLOYEE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 직원입니다"),
 
     /**

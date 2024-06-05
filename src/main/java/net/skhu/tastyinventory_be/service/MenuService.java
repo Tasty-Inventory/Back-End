@@ -6,6 +6,8 @@ import net.skhu.tastyinventory_be.controller.menu.dto.response.MenuResponseDto;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 import net.skhu.tastyinventory_be.domain.menu.MenuRepository;
 import net.skhu.tastyinventory_be.domain.recipe.RecipeRepository;
+import net.skhu.tastyinventory_be.exception.ErrorCode;
+import net.skhu.tastyinventory_be.exception.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,4 +37,23 @@ public class MenuService {
         }
         return result;
     }
+
+    public MenuResponseDto findOne(Long menuId) {
+        Menu menu = menuRepository.findById(menuId).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION,
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage()
+                )
+        );
+
+        return MenuResponseDto.of(
+                menu.getName(),
+                menu.getImageUrl(),
+                recipeRepository.findAllByMenu(menu)
+                        .stream()
+                        .map(recipe -> InventoryResponseDto.from(recipe.getInventory()))
+                        .collect(Collectors.toList())
+        );
+    }
+
 }
