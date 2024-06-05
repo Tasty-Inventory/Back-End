@@ -9,6 +9,6 @@ public class ScheduleEdit {
     Long employeeId;
     private Schedule.DayOfWeek dayOfWeek;
     private Schedule.TimeSlot timeSlot;
-
+    private java.util.Date date;
 
 }

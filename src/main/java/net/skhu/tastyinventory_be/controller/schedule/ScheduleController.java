@@ -4,10 +4,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
-import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.controller.schedule.dto.ScheduleEdit;
 import net.skhu.tastyinventory_be.controller.schedule.dto.ScheduleResponseDto;
-import net.skhu.tastyinventory_be.domain.employee.Employee;
 import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
@@ -38,7 +36,7 @@ public class ScheduleController {
         schedule.setEmployeeId(scheduleEdit.getEmployeeId());
         schedule.setDayOfWeek(scheduleEdit.getDayOfWeek());
         schedule.setTimeSlot(scheduleEdit.getTimeSlot());
-
+        schedule.setDate(scheduleEdit.getDate());
         scheduleService.save(schedule);
 
         return ResponseEntity.ok(BaseResponse.success(SuccessCode.SCHEDULE_CREATE_SUCCESS));
@@ -75,8 +73,11 @@ public class ScheduleController {
             if (scheduleEdit.getDayOfWeek() != null) {
                 schedule.setDayOfWeek(scheduleEdit.getDayOfWeek());
             }
-                if (scheduleEdit.getTimeSlot() != null) {
+            if (scheduleEdit.getTimeSlot() != null) {
                 schedule.setTimeSlot(scheduleEdit.getTimeSlot());
+            }
+            if (scheduleEdit.getDate() != null) {
+                schedule.setDate(scheduleEdit.getDate());
             }
 
 

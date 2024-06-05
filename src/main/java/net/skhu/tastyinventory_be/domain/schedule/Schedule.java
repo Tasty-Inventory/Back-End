@@ -22,6 +22,10 @@ public class Schedule {
     @Column(nullable = false)
     private TimeSlot timeSlot;
 
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private java.util.Date date;
+
     @Getter
     public enum DayOfWeek {
         MONDAY("월요일"),

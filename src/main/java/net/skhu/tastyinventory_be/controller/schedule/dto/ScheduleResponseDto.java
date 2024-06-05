@@ -19,6 +19,7 @@ public class ScheduleResponseDto {
 
     Schedule.DayOfWeek dayOfWeek;
     Schedule.TimeSlot timeSlot;
+    java.util.Date date;
 
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()
@@ -26,6 +27,8 @@ public class ScheduleResponseDto {
                 .employeeId(schedule.getEmployeeId())
                 .dayOfWeek(schedule.getDayOfWeek())
                 .timeSlot(schedule.getTimeSlot())
+                .date(schedule.getDate())
                 .build();
+
     }
 }
