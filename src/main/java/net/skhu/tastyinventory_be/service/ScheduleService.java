@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.controller.schedule.dto.ScheduleResponseDto;
 import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 import net.skhu.tastyinventory_be.domain.schedule.ScheduleRepository;
+import net.skhu.tastyinventory_be.util.WeekUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +82,31 @@ public class ScheduleService {
     @Transactional
     public Optional<Schedule> findById(Long id) {
         return scheduleRepository.findById(id);
+    }
+
+    public List<ScheduleResponseDto> getSchedulesForWeek(int year, int month, int week, Long employeeId) {
+        LocalDate startOfWeek = WeekUtils.getStartOfWeek(year, month, week);
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+        List<Schedule> schedules;
+        if (employeeId != null) {
+            schedules = scheduleRepository.findByDateBetweenAndEmployeeId(startOfWeek, endOfWeek, employeeId);
+        } else {
+            schedules = scheduleRepository.findByDateBetween(startOfWeek, endOfWeek);
+        }
+
+        return schedules.stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
+    private ScheduleResponseDto convertToDto(Schedule schedule) {
+        return new ScheduleResponseDto(
+                schedule.getId(),
+                schedule.getEmployeeId(),
+                schedule.getDayOfWeek(),
+                schedule.getTimeSlot(),
+                schedule.getDate()
+        );
     }
 }

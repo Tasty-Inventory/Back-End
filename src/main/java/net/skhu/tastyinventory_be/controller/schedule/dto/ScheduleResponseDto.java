@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 
+import java.time.LocalDate;
+
 @Builder
 @Data
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class ScheduleResponseDto {
 
     Schedule.DayOfWeek dayOfWeek;
     Schedule.TimeSlot timeSlot;
-    java.util.Date date;
+    LocalDate date;
 
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()

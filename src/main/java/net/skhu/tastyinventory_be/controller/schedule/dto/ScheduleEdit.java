@@ -1,6 +1,7 @@
 package net.skhu.tastyinventory_be.controller.schedule.dto;
 import lombok.Data;
 import net.skhu.tastyinventory_be.domain.schedule.Schedule;
+import java.time.LocalDate;
 
 @Data
 public class ScheduleEdit {
@@ -9,6 +10,6 @@ public class ScheduleEdit {
     Long employeeId;
     private Schedule.DayOfWeek dayOfWeek;
     private Schedule.TimeSlot timeSlot;
-    private java.util.Date date;
+    private LocalDate date;
 
 }

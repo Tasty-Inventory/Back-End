@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Data
 @Entity
 public class Schedule {
@@ -23,8 +25,7 @@ public class Schedule {
     private TimeSlot timeSlot;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private java.util.Date date;
+    private LocalDate date;
 
     @Getter
     public enum DayOfWeek {

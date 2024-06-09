@@ -10,6 +10,7 @@ import net.skhu.tastyinventory_be.domain.schedule.Schedule;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.ScheduleService;
+import net.skhu.tastyinventory_be.util.WeekUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -98,5 +99,37 @@ public class ScheduleController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_SCHEDULE_EXCEPTION));
         }
+    }
+
+    @GetMapping("/week")
+    public ResponseEntity<BaseResponse<List<ScheduleResponseDto>>> getWeekSchedules(
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam int week,
+            @RequestParam(required = false) Long employeeId) {
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, week, employeeId);
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
+    }
+
+    @GetMapping("/week/next")
+    public ResponseEntity<BaseResponse<List<ScheduleResponseDto>>> getNextWeekSchedules(
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam int week,
+            @RequestParam(required = false) Long employeeId) {
+        int nextWeek = WeekUtils.changeWeek(year, month, week, 1);
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, nextWeek, employeeId);
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
+    }
+
+    @GetMapping("/week/previous")
+    public ResponseEntity<BaseResponse<List<ScheduleResponseDto>>> getPreviousWeekSchedules(
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam int week,
+            @RequestParam(required = false) Long employeeId) {
+        int previousWeek = WeekUtils.changeWeek(year, month, week, -1);
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, previousWeek, employeeId);
+        return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
     }
 }
