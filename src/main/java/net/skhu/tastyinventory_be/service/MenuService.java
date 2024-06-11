@@ -108,4 +108,16 @@ public class MenuService {
                 ).forEach(recipeRepository::save);
     }
 
+    @Transactional
+    public void deleteMenu(Long id) {
+        Menu menu = menuRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION,
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage()
+                )
+        );
+
+        menuRepository.delete(menu);
+    }
+
 }

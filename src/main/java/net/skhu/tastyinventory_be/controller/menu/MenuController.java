@@ -60,4 +60,11 @@ public class MenuController {
         menuService.updateMenu(id, image, requestDto);
         return BaseResponse.success(SuccessCode.MENU_PATCH_SUCCESS);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<?> deleteMenu(@PathVariable Long id) {
+        menuService.deleteMenu(id);
+        return BaseResponse.success(SuccessCode.MENU_DELETE_SUCCESS);
+    }
 }
