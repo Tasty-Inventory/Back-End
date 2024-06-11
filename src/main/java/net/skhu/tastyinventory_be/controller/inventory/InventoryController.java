@@ -1,5 +1,6 @@
 package net.skhu.tastyinventory_be.controller.inventory;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
@@ -27,7 +28,7 @@ public class InventoryController {
     public BaseResponse<?> createInventory(
             @RequestParam("inventoryName") String name,
             @RequestParam("inventoryUnit") Unit unit,
-            @RequestParam("inventoryImage") MultipartFile image
+            @RequestPart("inventoryImage") MultipartFile image
     ) {
         inventoryService.createInventory(name, unit, image);
         return BaseResponse.success(SuccessCode.INVENTORY_CREATE_SUCCESS);

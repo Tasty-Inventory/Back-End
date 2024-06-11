@@ -26,6 +26,7 @@ public enum SuccessCode {
     INVENTORY_CREATE_SUCCESS(HttpStatus.CREATED, "재고 생성을 완료하였습니다"),
     EMPLOYEE_CREATE_SUCCESS(HttpStatus.CREATED, "직원 생성이 완료되었습니다"),
     SALARY_CREATE_SUCCESS(HttpStatus.CREATED, "급여 생성이 완료되었습니다"),
+    MENU_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 생성이 완료되었습니다"),
 
     /**
      * 204 NO_CONTENT
