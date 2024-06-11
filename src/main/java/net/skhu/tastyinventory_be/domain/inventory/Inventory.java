@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
 import net.skhu.tastyinventory_be.domain.recipe.Recipe;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,10 +33,10 @@ public class Inventory {
     private String imageUrl;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Recipe> recipes = new HashSet<>();
+    private List<Recipe> recipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<InventoryVolume> inventoryVolumes = new HashSet<>();
+    private List<InventoryVolume> inventoryVolumes = new ArrayList<>();
 
     public void update(String name, String unit, String imageUrl) {
         this.name = name;
