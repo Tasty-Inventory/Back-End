@@ -14,5 +14,5 @@ public class MenuRequestDto {
     @NotBlank(message = "이름을 입력하세요.")
     private String name;
 
-    private List<RelatedInventoryRequestDto> relatedInventory;
+    private List<RelatedInventoryRequestDto> relatedInventories;
 }

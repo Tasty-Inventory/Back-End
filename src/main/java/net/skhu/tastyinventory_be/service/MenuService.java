@@ -1,9 +1,10 @@
 package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
-import net.skhu.tastyinventory_be.controller.inventory.dto.response.InventoryResponseDto;
 import net.skhu.tastyinventory_be.controller.menu.dto.request.MenuRequestDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.response.MenuDetailResponseDto;
 import net.skhu.tastyinventory_be.controller.menu.dto.response.MenuResponseDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.response.RelatedInventoryResponseDto;
 import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 import net.skhu.tastyinventory_be.domain.menu.MenuRepository;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -37,53 +37,45 @@ public class MenuService {
 
         menuRepository.save(menu);
 
-        List<Recipe> recipes = requestDto.getRelatedInventory().stream()
+        requestDto.getRelatedInventories().stream()
                 .map(
                         r -> Recipe.builder()
-                                .usage(r.getInventoryUsage())
+                                .usages(r.getInventoryUsage())
                                 .menu(menu)
                                 .inventory(inventoryRepository.findById(
                                         r.getInventoryId()).orElseThrow(
                                                 () -> new NotFoundException(
                                                         ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION,
                                                         ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()))
-                                ).build()).toList();
-
-
-        recipes.stream().map(recipeRepository::save).close();
+                                ).build()
+                ).forEach(recipeRepository::save);
     }
 
     public List<MenuResponseDto> findAllMenu() {
         List<Menu> menuList = menuRepository.findAll();
         List<MenuResponseDto> result = new ArrayList<>();
         for (Menu menu : menuList) {
-            result.add(
-                    MenuResponseDto.of(
-                            menu.getName(),
-                            menu.getImageUrl(),
-                            recipeRepository.findAllByMenu(menu).stream()
-                                    .map(
-                                            recipe -> InventoryResponseDto.from(
-                                                    recipe.getInventory()))
-                                    .collect(Collectors.toList())));
+            result.add(MenuResponseDto.of(menu.getId(), menu.getName(), menu.getImageUrl()));
         }
         return result;
     }
 
-    public MenuResponseDto findOneMenu(Long menuId) {
+    public MenuDetailResponseDto findOneMenu(Long menuId) {
         Menu menu = menuRepository.findById(menuId).orElseThrow(
                 () -> new NotFoundException(
                         ErrorCode.NOT_FOUND_MENU_EXCEPTION,
                         ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage()
                 ));
 
-        return MenuResponseDto.of(
-                menu.getName(),
-                menu.getImageUrl(),
-                recipeRepository.findAllByMenu(menu).stream().map(
-                        recipe -> InventoryResponseDto.from(
-                                recipe.getInventory()))
-                        .collect(Collectors.toList()));
+        List<RelatedInventoryResponseDto> relatedInventories = recipeRepository.findAllByMenu(menu).stream()
+                .map(recipe -> RelatedInventoryResponseDto.of(
+                        recipe.getInventory().getId(),
+                        recipe.getInventory().getName(),
+                        recipe.getUsages(),
+                        recipe.getInventory().getUnit()
+                )).toList();
+
+        return MenuDetailResponseDto.of(menu.getId(), menu.getName(), menu.getImageUrl(), relatedInventories);
     }
 
 }

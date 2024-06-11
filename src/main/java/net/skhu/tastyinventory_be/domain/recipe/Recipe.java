@@ -15,7 +15,7 @@ import net.skhu.tastyinventory_be.domain.menu.Menu;
 @Entity
 public class Recipe extends BaseEntity {
     @Column(nullable = false)
-    private Long usage;
+    private Long usages;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
@@ -26,8 +26,8 @@ public class Recipe extends BaseEntity {
     private Inventory inventory;
 
     @Builder
-    public Recipe(Long usage, Menu menu, Inventory inventory) {
-        this.usage = usage;
+    public Recipe(Long usages, Menu menu, Inventory inventory) {
+        this.usages = usages;
         this.menu = menu;
         this.inventory = inventory;
     }

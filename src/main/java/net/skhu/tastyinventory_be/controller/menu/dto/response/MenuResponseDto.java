@@ -1,15 +1,19 @@
 package net.skhu.tastyinventory_be.controller.menu.dto.response;
 
-import net.skhu.tastyinventory_be.controller.inventory.dto.response.InventoryResponseDto;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class MenuResponseDto{
+    Long menuId;
+    String menuName;
+    String menuImage;
 
-public record MenuResponseDto(
-        String name,
-        String imageUrl,
-        List<InventoryResponseDto> inventories
-) {
-    public static MenuResponseDto of(String name, String imageUrl, List<InventoryResponseDto> inventories) {
-        return new MenuResponseDto(name, imageUrl, inventories);
+    public static MenuResponseDto of(Long menuId, String menuName, String menuImage) {
+        return new MenuResponseDto(menuId, menuName, menuImage);
     }
 }

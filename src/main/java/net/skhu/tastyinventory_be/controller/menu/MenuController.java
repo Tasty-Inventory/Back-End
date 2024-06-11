@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.controller.menu.dto.request.MenuRequestDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.response.MenuDetailResponseDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.response.MenuResponseDto;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.MenuService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,5 +30,19 @@ public class MenuController {
     ) {
         menuService.createMenu(image, requestDto);
         return BaseResponse.success(SuccessCode.MENU_CREATE_SUCCESS);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<List<MenuResponseDto>> findAll() {
+        final List<MenuResponseDto> data = menuService.findAllMenu();
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<MenuDetailResponseDto> findOne(@PathVariable Long id) {
+        final MenuDetailResponseDto data = menuService.findOneMenu(id);
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
 }
