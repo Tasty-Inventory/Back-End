@@ -45,4 +45,19 @@ public class MenuController {
         final MenuDetailResponseDto data = menuService.findOneMenu(id);
         return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
+
+    @PatchMapping(
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "/{id}"
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<?> updateMenu(
+            @RequestPart("image") MultipartFile image,
+            @RequestPart("data") MenuRequestDto requestDto,
+            @PathVariable Long id
+    ) {
+        menuService.updateMenu(id, image, requestDto);
+        return BaseResponse.success(SuccessCode.MENU_PATCH_SUCCESS);
+    }
 }

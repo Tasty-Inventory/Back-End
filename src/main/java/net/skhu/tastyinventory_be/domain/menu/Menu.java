@@ -31,4 +31,9 @@ public class Menu extends BaseEntity {
         this.name = name;
         this.imageUrl = imageUrl;
     }
+
+    public void update(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+    }
 }

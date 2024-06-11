@@ -78,4 +78,34 @@ public class MenuService {
         return MenuDetailResponseDto.of(menu.getId(), menu.getName(), menu.getImageUrl(), relatedInventories);
     }
 
+    @Transactional
+    public void updateMenu(Long id, MultipartFile image, MenuRequestDto requestDto) {
+        Menu menu = menuRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION,
+                        ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage()
+                )
+        );
+
+        recipeRepository.deleteAllByMenu(menu);
+
+        s3Service.deleteFile(menu.getImageUrl());
+        String imageUrl = s3Service.uploadImage(image, "menu");
+
+        menu.update(requestDto.getName(), imageUrl);
+
+        requestDto.getRelatedInventories().stream()
+                .map(
+                        r -> Recipe.builder()
+                                .usages(r.getInventoryUsage())
+                                .menu(menu)
+                                .inventory(inventoryRepository.findById(
+                                        r.getInventoryId()).orElseThrow(
+                                        () -> new NotFoundException(
+                                                ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION,
+                                                ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()))
+                                ).build()
+                ).forEach(recipeRepository::save);
+    }
+
 }

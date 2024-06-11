@@ -17,6 +17,9 @@ public enum SuccessCode {
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
     LOGOUT_SUCCESS(HttpStatus.OK, "로그아웃에 성공했습니다."),
     INVENTORY_GET_SUCCESS(HttpStatus.OK, "재고 조회에 성공했습니다."),
+    INVENTORY_DELETE_SUCCESS(HttpStatus.OK, "재고 삭제에 성공했습니다."),
+    INVENTORY_PATCH_SUCCESS(HttpStatus.OK, "재고 수정이 완료되었습니다."),
+    MENU_PATCH_SUCCESS(HttpStatus.OK, "메뉴 수정이 완료되었습니다."),
 
     /**
      * 201 CREATED
@@ -36,8 +39,6 @@ public enum SuccessCode {
     SALARY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "급여 삭제에 성공했습니다"),
     EMPLOYEE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     SALARY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "급여 정보 수정이 완료되었습니다"),
-    INVENTORY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "재고 삭제에 성공했습니다."),
-    INVENTORY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "재고 수정이 완료되었습니다.")
     ;
 
 

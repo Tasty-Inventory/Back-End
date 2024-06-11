@@ -53,7 +53,7 @@ public class InventoryController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public BaseResponse<?> updateInventory(
             @RequestParam("inventoryName") String name,
             @RequestParam("inventoryUnit") Unit unit,
@@ -64,7 +64,7 @@ public class InventoryController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public BaseResponse<?> deleteInventory(@PathVariable Long id) {
         inventoryService.deleteInventory(id);
         return BaseResponse.success(SuccessCode.INVENTORY_DELETE_SUCCESS);
