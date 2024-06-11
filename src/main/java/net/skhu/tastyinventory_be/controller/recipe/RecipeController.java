@@ -3,6 +3,8 @@ package net.skhu.tastyinventory_be.controller.recipe;
 
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryResponseDto;
+import net.skhu.tastyinventory_be.controller.recipe.dto.RecipeListResponseDto;
 import net.skhu.tastyinventory_be.controller.recipe.dto.RecipeSaveRequestDto;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.recipe.RecipeService;
@@ -23,7 +25,8 @@ public class RecipeController {
     }
 
     @GetMapping
-    public BaseResponse<String> findAllRecipe() {
-
+    public BaseResponse<RecipeListResponseDto> findAllRecipe() {
+        RecipeListResponseDto responseDto = recipeService.findAll();
+        return BaseResponse.success(SuccessCode.RECIPE_FIND_SUCCESS, responseDto);
     }
 }

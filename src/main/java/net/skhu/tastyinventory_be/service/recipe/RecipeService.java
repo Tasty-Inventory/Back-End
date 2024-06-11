@@ -1,11 +1,15 @@
 package net.skhu.tastyinventory_be.service.recipe;
 
 import lombok.RequiredArgsConstructor;
+import net.skhu.tastyinventory_be.controller.recipe.dto.RecipeInfoResponseDto;
+import net.skhu.tastyinventory_be.controller.recipe.dto.RecipeListResponseDto;
 import net.skhu.tastyinventory_be.controller.recipe.dto.RecipeSaveRequestDto;
 import net.skhu.tastyinventory_be.domain.recipe.Recipe;
 import net.skhu.tastyinventory_be.domain.recipe.RecipeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +24,13 @@ public class RecipeService {
                 .build();
         recipeRepository.save(recipe);
     }
-    public
+
+    public RecipeListResponseDto findAll() {
+        List<Recipe> recipes = recipeRepository.findAll();
+        List<RecipeInfoResponseDto> recipeInfoResonseDtoList = recipes.stream()
+                .map(RecipeInfoResponseDto::from)
+                .toList();
+        return RecipeListResponseDto.from(recipeInfoResonseDtoList);
+    }
 
 }

@@ -33,6 +33,7 @@ public enum SuccessCode {
     INVENTORY_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "재고가 생성되었습니다."),
     MENU_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "메뉴 등록 완료"),
     RECIPE_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "레시피 등록 완료"),
+    RECIPE_FIND_SUCCESS(HttpStatus.NO_CONTENT, "레시피 조회 완료"),
     ;
 
 

@@ -28,8 +28,10 @@ public class Recipe {
     @JoinColumn(name = "inventoryId", referencedColumnName = "id")
     private Inventory inventory;
     @Builder
-    public Recipe(Long usage) {
+    public Recipe(Long usage, Menu menu, Inventory inventory) {
         this.usage = usage;
+        this.menu = menu;
+        this.inventory = inventory;
     }
 
 }
