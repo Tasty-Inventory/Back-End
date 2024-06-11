@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 import net.skhu.tastyinventory_be.domain.menu.MenuRepository;
 
-import net.skhu.tastyinventory_be.dto.menu.MenuListResponseDto;
-import net.skhu.tastyinventory_be.dto.menu.MenuResponseDto;
-import net.skhu.tastyinventory_be.dto.menu.MenuSaveRequestDto;
-import net.skhu.tastyinventory_be.dto.menu.MenuUpdateRequestDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.MenuListResponseDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.MenuResponseDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.MenuSaveRequestDto;
+import net.skhu.tastyinventory_be.controller.menu.dto.MenuUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
-import net.skhu.tastyinventory_be.dto.inventory.InventoryListResponseDto;
-import net.skhu.tastyinventory_be.dto.inventory.InventoryResponseDto;
-import net.skhu.tastyinventory_be.dto.inventory.InventorySaveRequestDto;
-import net.skhu.tastyinventory_be.dto.inventory.InventoryUpdateRequestDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryListResponseDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryResponseDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventorySaveRequestDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryUpdateRequestDto;
 import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.Inventory.InventoryService;
 import org.springframework.web.bind.annotation.*;

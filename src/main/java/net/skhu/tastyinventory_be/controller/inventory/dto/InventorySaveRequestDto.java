@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.dto.inventory;
+package net.skhu.tastyinventory_be.controller.inventory.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

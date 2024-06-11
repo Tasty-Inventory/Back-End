@@ -32,6 +32,7 @@ public enum SuccessCode {
     UNLINK_SUCCESS(HttpStatus.NO_CONTENT, "사용자 탈퇴에 성공했습니다"),
     INVENTORY_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "재고가 생성되었습니다."),
     MENU_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "메뉴 등록 완료"),
+    RECIPE_CREATED_SUCCESS(HttpStatus.NO_CONTENT, "레시피 등록 완료"),
     ;
 
 

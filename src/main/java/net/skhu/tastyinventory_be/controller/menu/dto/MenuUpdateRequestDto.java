@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.dto.menu;
+package net.skhu.tastyinventory_be.controller.menu.dto;
 
 import lombok.Builder;
 

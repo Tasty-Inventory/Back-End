@@ -28,9 +28,7 @@ public class Recipe {
     @JoinColumn(name = "inventoryId", referencedColumnName = "id")
     private Inventory inventory;
     @Builder
-    public Recipe(Menu menu, Inventory inventory, Long usage) {
-        this.menu = menu;
-        this.inventory = inventory;
+    public Recipe(Long usage) {
         this.usage = usage;
     }
 

@@ -2,7 +2,7 @@ package net.skhu.tastyinventory_be.controller.inventoryVolume;
 
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.domain.inventoryVolume.InventoryVolume;
-import net.skhu.tastyinventory_be.dto.inventory.InventoryVolumeRequestDto;
+import net.skhu.tastyinventory_be.controller.inventory.dto.InventoryVolumeRequestDto;
 import net.skhu.tastyinventory_be.service.inventoryVolume.InventoryVolumeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
