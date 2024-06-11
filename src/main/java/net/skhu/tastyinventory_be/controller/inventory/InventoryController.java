@@ -1,6 +1,5 @@
 package net.skhu.tastyinventory_be.controller.inventory;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
@@ -48,6 +47,20 @@ public class InventoryController {
     ) {
         final List<InventoryResponseDto> data = inventoryService.findAllByNameContaining(srchText.orElse(""));
         return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
+    }
+
+    @PatchMapping(
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public BaseResponse<?> updateInventory(
+            @RequestParam("inventoryName") String name,
+            @RequestParam("inventoryUnit") Unit unit,
+            @RequestPart("inventoryImage") MultipartFile image,
+            @PathVariable Long id) {
+        inventoryService.updateInventory(id, name, unit, image);
+        return BaseResponse.success(SuccessCode.INVENTORY_PATCH_SUCCESS);
     }
 
     @DeleteMapping("/{id}")

@@ -36,4 +36,10 @@ public class Inventory extends BaseEntity {
         this.unit = unit;
         this.imageUrl = imageUrl;
     }
+
+    public void update(String name, Unit unit, String imageUrl) {
+        this.name = name;
+        this.unit = unit;
+        this.imageUrl = imageUrl;
+    }
 }
