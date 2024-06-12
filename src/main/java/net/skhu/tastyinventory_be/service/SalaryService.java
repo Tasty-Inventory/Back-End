@@ -46,7 +46,6 @@ public class SalaryService {
             salaryResponseDto.setName(salary.getName());
             salaryResponseDto.setBaseSalary(salary.getBaseSalary());
             salaryResponseDto.setPosition(salary.getPosition());
-            // 나머지 필드도 필요에 따라 추가
 
             return salaryResponseDto;
         } else {
