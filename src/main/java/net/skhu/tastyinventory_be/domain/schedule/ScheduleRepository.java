@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     Optional<Schedule> findById(Long id);
-    List<Schedule> findByStaffId(Long staffId);
-    List<Schedule> findByDateBetweenAndStaffId(LocalDate startDate, LocalDate endDate, Long staffId);
+    List<Schedule> findByEmployeeId(Long employeeId);
+    List<Schedule> findByDateBetweenAndEmployeeId(LocalDate startDate, LocalDate endDate, Long employeeId);
 
     List<Schedule> findByDateBetween(LocalDate startDate, LocalDate endDate);
 }

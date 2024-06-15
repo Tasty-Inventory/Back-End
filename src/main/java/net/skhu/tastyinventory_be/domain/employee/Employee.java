@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.domain.staff;
+package net.skhu.tastyinventory_be.domain.employee;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Data
 @Entity
-public class Staff {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staffId")
+    @Column(name = "employeeId")
     int id;
     String name;
     String rrn; // resident_register_number 주민등록번호

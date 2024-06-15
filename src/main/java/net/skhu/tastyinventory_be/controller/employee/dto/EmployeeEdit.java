@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.controller.staff.dto;
+package net.skhu.tastyinventory_be.controller.employee.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Data
-public class StaffEdit {
+public class EmployeeEdit {
     int id;
 
     @NotEmpty

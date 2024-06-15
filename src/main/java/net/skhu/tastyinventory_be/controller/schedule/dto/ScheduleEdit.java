@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class ScheduleEdit {
     int id;
 
-    Long staffId;
+    Long employeeId;
     private Schedule.DayOfWeek dayOfWeek;
     private Schedule.TimeSlot timeSlot;
     private LocalDate date;

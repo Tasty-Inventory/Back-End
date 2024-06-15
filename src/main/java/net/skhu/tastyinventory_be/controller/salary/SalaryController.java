@@ -79,7 +79,7 @@ public class SalaryController {
             salaryService.save(salary);
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.SALARY_PATCH_SUCCESS));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_STAFF_EXCEPTION));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 
@@ -90,7 +90,7 @@ public class SalaryController {
             salaryService.deleteById(id);
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.SALARY_DELETE_SUCCESS));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_STAFF_EXCEPTION));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 }

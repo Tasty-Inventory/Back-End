@@ -34,7 +34,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<?> createSchedule(@Valid @RequestBody ScheduleEdit scheduleEdit) {
         Schedule schedule = new Schedule();
-        schedule.setStaffId(scheduleEdit.getStaffId());
+        schedule.setEmployeeId(scheduleEdit.getEmployeeId());
         schedule.setDayOfWeek(scheduleEdit.getDayOfWeek());
         schedule.setTimeSlot(scheduleEdit.getTimeSlot());
         schedule.setDate(scheduleEdit.getDate());
@@ -53,13 +53,13 @@ public class ScheduleController {
         }
     }
 
-    @GetMapping("/staff/{staffId}")
-    public ResponseEntity<?> getStaffScheduleDetails(@PathVariable(name = "staffId") Long staffId) {
-        List<ScheduleResponseDto> schedules = scheduleService.getStaffScheduleDetails(staffId);
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<?> getEmployeeScheduleDetails(@PathVariable(name = "employeeId") Long employeeId) {
+        List<ScheduleResponseDto> schedules = scheduleService.getEmployeeScheduleDetails(employeeId);
         if (!schedules.isEmpty()) {
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_STAFF_EXCEPTION));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 
@@ -106,8 +106,8 @@ public class ScheduleController {
             @RequestParam int year,
             @RequestParam int month,
             @RequestParam int week,
-            @RequestParam(required = false) Long staffId) {
-        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, week, staffId);
+            @RequestParam(required = false) Long employeeId) {
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, week, employeeId);
         return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
     }
 
@@ -116,9 +116,9 @@ public class ScheduleController {
             @RequestParam int year,
             @RequestParam int month,
             @RequestParam int week,
-            @RequestParam(required = false) Long staffId) {
+            @RequestParam(required = false) Long employeeId) {
         int nextWeek = WeekUtils.changeWeek(year, month, week, 1);
-        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, nextWeek, staffId);
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, nextWeek, employeeId);
         return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
     }
 
@@ -127,9 +127,9 @@ public class ScheduleController {
             @RequestParam int year,
             @RequestParam int month,
             @RequestParam int week,
-            @RequestParam(required = false) Long staffId) {
+            @RequestParam(required = false) Long employeeId) {
         int previousWeek = WeekUtils.changeWeek(year, month, week, -1);
-        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, previousWeek, staffId);
+        List<ScheduleResponseDto> schedules = scheduleService.getSchedulesForWeek(year, month, previousWeek, employeeId);
         return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, schedules));
     }
 }

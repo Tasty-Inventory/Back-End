@@ -28,7 +28,7 @@ public enum SuccessCode {
     SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입이 완료됐습니다"),
     SIGNOUT_SUCCESS(HttpStatus.CREATED, "로그아웃이 완료됐습니다"),
     INVENTORY_CREATE_SUCCESS(HttpStatus.CREATED, "재고 생성을 완료하였습니다"),
-    STAFF_CREATE_SUCCESS(HttpStatus.CREATED, "직원 생성이 완료되었습니다"),
+    EMPLOYEE_CREATE_SUCCESS(HttpStatus.CREATED, "직원 생성이 완료되었습니다"),
     SALARY_CREATE_SUCCESS(HttpStatus.CREATED, "급여 생성이 완료되었습니다"),
     MENU_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 생성이 완료되었습니다"),
     SOLD_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 판매량 등록을 완료했습니다"),
@@ -38,9 +38,9 @@ public enum SuccessCode {
      * 204 NO_CONTENT
      */
     UNLINK_SUCCESS(HttpStatus.NO_CONTENT, "사용자 탈퇴에 성공했습니다"),
-    STAFF_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "직원 삭제에 성공했습니다"),
+    EMPLOYEE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "직원 삭제에 성공했습니다"),
     SALARY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "급여 삭제에 성공했습니다"),
-    STAFF_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
+    EMPLOYEE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     SALARY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "급여 정보 수정이 완료되었습니다"),
     SCHEDULE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "스케줄 정보 수정이 완료되었습니다"),
     SCHEDULE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "스케줄 삭제에 성공했습니다"),

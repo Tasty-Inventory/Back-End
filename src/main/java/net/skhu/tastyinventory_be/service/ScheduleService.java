@@ -32,7 +32,7 @@ public class ScheduleService {
         for (Schedule schedule : schedules) {
             ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
             scheduleResponseDto.setId(schedule.getId());
-            scheduleResponseDto.setStaffId(schedule.getStaffId());
+            scheduleResponseDto.setEmployeeId(schedule.getEmployeeId());
             scheduleResponseDto.setDayOfWeek(schedule.getDayOfWeek());
             scheduleResponseDto.setTimeSlot(schedule.getTimeSlot());
             scheduleResponseDto.setDate(schedule.getDate());
@@ -49,7 +49,7 @@ public class ScheduleService {
             Schedule schedule = scheduleOptional.get();
             ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
             scheduleResponseDto.setId(schedule.getId());
-            scheduleResponseDto.setStaffId(schedule.getStaffId());
+            scheduleResponseDto.setEmployeeId(schedule.getEmployeeId());
             scheduleResponseDto.setDayOfWeek(schedule.getDayOfWeek());
             scheduleResponseDto.setTimeSlot(schedule.getTimeSlot());
             scheduleResponseDto.setDate(schedule.getDate());
@@ -61,12 +61,12 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ScheduleResponseDto> getStaffScheduleDetails(Long staffId) {
-        List<Schedule> schedules = scheduleRepository.findByStaffId(staffId);
+    public List<ScheduleResponseDto> getEmployeeScheduleDetails(Long employeeId) {
+        List<Schedule> schedules = scheduleRepository.findByEmployeeId(employeeId);
         return schedules.stream()
                 .map(schedule -> new ScheduleResponseDto(
                         schedule.getId(),
-                        schedule.getStaffId(),
+                        schedule.getEmployeeId(),
                         schedule.getDayOfWeek(),
                         schedule.getTimeSlot(),
                         schedule.getDate()
@@ -84,13 +84,13 @@ public class ScheduleService {
         return scheduleRepository.findById(id);
     }
 
-    public List<ScheduleResponseDto> getSchedulesForWeek(int year, int month, int week, Long staffId) {
+    public List<ScheduleResponseDto> getSchedulesForWeek(int year, int month, int week, Long employeeId) {
         LocalDate startOfWeek = WeekUtils.getStartOfWeek(year, month, week);
         LocalDate endOfWeek = startOfWeek.plusDays(6);
 
         List<Schedule> schedules;
-        if (staffId != null) {
-            schedules = scheduleRepository.findByDateBetweenAndStaffId(startOfWeek, endOfWeek, staffId);
+        if (employeeId != null) {
+            schedules = scheduleRepository.findByDateBetweenAndEmployeeId(startOfWeek, endOfWeek, employeeId);
         } else {
             schedules = scheduleRepository.findByDateBetween(startOfWeek, endOfWeek);
         }
@@ -103,7 +103,7 @@ public class ScheduleService {
     private ScheduleResponseDto convertToDto(Schedule schedule) {
         return new ScheduleResponseDto(
                 schedule.getId(),
-                schedule.getStaffId(),
+                schedule.getEmployeeId(),
                 schedule.getDayOfWeek(),
                 schedule.getTimeSlot(),
                 schedule.getDate()
