@@ -2,6 +2,7 @@ package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.controller.sold.dto.request.SoldRequestDto;
+import net.skhu.tastyinventory_be.controller.sold.dto.response.SoldResponseDto;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 import net.skhu.tastyinventory_be.domain.menu.MenuRepository;
 import net.skhu.tastyinventory_be.domain.sold.Sold;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -40,5 +43,12 @@ public class SoldService {
 
             soldRepository.save(sold);
         }
+    }
+
+    public List<SoldResponseDto> getSoldAll() {
+        List<Sold> soldList = soldRepository.findAll();
+        return soldList.stream()
+                .map(sold -> new SoldResponseDto(sold.getId(), sold.getMenu().getName(), sold.getCount()))
+                .collect(Collectors.toList());
     }
 }
