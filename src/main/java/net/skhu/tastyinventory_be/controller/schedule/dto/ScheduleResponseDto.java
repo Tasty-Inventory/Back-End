@@ -16,8 +16,8 @@ import java.time.LocalDate;
 public class ScheduleResponseDto {
     Long id;
 
-    @JsonProperty("employee_id")
-    Long employeeId;
+    @JsonProperty("staff_id")
+    Long staffId;
 
     Schedule.DayOfWeek dayOfWeek;
     Schedule.TimeSlot timeSlot;
@@ -26,7 +26,7 @@ public class ScheduleResponseDto {
     public static ScheduleResponseDto of(Schedule schedule) {
         return ScheduleResponseDto.builder()
                 .id(schedule.getId())
-                .employeeId(schedule.getEmployeeId())
+                .staffId(schedule.getStaffId())
                 .dayOfWeek(schedule.getDayOfWeek())
                 .timeSlot(schedule.getTimeSlot())
                 .date(schedule.getDate())

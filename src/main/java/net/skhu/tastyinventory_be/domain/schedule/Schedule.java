@@ -14,7 +14,7 @@ public class Schedule {
     private Long id;
 
     @Column(nullable = false)
-    private Long employeeId;
+    private Long staffId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
