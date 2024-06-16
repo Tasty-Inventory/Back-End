@@ -13,10 +13,12 @@ import net.skhu.tastyinventory_be.exception.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.plaf.PanelUI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 public class SoldService {
     private final SoldRepository soldRepository;
     private final MenuRepository menuRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(SoldService.class);
 
     @Transactional
     public void registerSold(SoldRequestDto requestDto) {
@@ -54,23 +58,23 @@ public class SoldService {
                 .collect(Collectors.toList());
     }
 
-//    @Transactional
-//    public void updateSold(Long id, SoldRequestDto requestDto) {
-//        Sold sold = soldRepository.findById(id).orElseThrow(() ->
-//                new NotFoundException(ErrorCode.NOT_FOUND_SOLD_EXCEPTION, "Sold item with id " + id + " not found"));
-//
-//        requestDto.getSoldMenuList().forEach(soldMenuDto -> {
-//            Menu menu = menuRepository.findById(soldMenuDto.getMenuId()).orElseThrow(() ->
-//                    new NotFoundException(
-//                            ErrorCode.NOT_FOUND_MENU_EXCEPTION,
-//                            "Menu item with id " + soldMenuDto.getMenuId() + " not found"));
-//
-//            sold.update(menu, soldMenuDto.getSoldCount());
-//        });
-//
-//        soldRepository.save(sold);
-//    }
+    @Transactional
+    public void updateSold(Long id, SoldRequestDto requestDto) {
+        Sold sold = soldRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_SOLD_EXCEPTION,
+                        ErrorCode.NOT_FOUND_SOLD_EXCEPTION.getMessage() + id));
 
+        for (SoldMenuDto soldMenuDto : requestDto.getSoldMenuList()) {
+            Menu menu = menuRepository.findById(soldMenuDto.getMenuId()).orElseThrow(
+                    () -> new NotFoundException(
+                            ErrorCode.NOT_FOUND_MENU_EXCEPTION,
+                            ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage() + id));
+
+            sold.update(soldMenuDto.getSoldCount());
+            soldRepository.save(sold);
+        }
+    }
 
     @Transactional
     public void deleteSold(Long id) {
