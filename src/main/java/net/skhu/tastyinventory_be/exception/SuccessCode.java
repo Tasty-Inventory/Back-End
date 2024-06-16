@@ -33,6 +33,7 @@ public enum SuccessCode {
     MENU_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 생성이 완료되었습니다"),
     SOLD_CREATE_SUCCESS(HttpStatus.CREATED, "메뉴 판매량 등록을 완료했습니다"),
     INVENTORY_RECORD_CREATE_SUCCESS(HttpStatus.CREATED, "재고 기록 등록을 완료했습니다"),
+    SCHEDULE_CREATE_SUCCESS(HttpStatus.CREATED, "스케줄 생성이 완료되었습니다"),
 
     /**
      * 204 NO_CONTENT
@@ -42,6 +43,8 @@ public enum SuccessCode {
     SALARY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "급여 삭제에 성공했습니다"),
     EMPLOYEE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     SALARY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "급여 정보 수정이 완료되었습니다"),
+    SCHEDULE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "스케줄 정보 수정이 완료되었습니다"),
+    SCHEDULE_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "스케줄 삭제에 성공했습니다"), 
     ;
 
 

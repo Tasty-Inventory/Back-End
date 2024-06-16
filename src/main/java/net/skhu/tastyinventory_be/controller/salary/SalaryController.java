@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.common.dto.BaseResponse;
-import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeResponseDto;
 import net.skhu.tastyinventory_be.domain.salary.Salary;
 import net.skhu.tastyinventory_be.controller.salary.dto.SalaryResponseDto;
 import net.skhu.tastyinventory_be.exception.ErrorCode;
@@ -12,15 +11,13 @@ import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.SalaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import net.skhu.tastyinventory_be.controller.salary.dto.SalaryEdit;
 
 import java.util.List;
 import java.util.Optional;
 
-// BOOLEAN 추가/삭제
+
 
 
 @RequiredArgsConstructor
