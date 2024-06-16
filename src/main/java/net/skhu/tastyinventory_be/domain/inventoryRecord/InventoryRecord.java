@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.domain.recipe;
+package net.skhu.tastyinventory_be.domain.inventoryRecord;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,28 +7,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.skhu.tastyinventory_be.domain.BaseEntity;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
-import net.skhu.tastyinventory_be.domain.menu.Menu;
+
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "RECIPE")
+@Table(name = "INVENTORY_RECORD")
 @Entity
-public class Recipe extends BaseEntity {
+public class InventoryRecord extends BaseEntity {
     @Column(nullable = false)
-    private Long usages;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
 
+    @Column(nullable = false)
+    private Long currentVolume;
+
+    private Long orderVolume;
+
     @Builder
-    public Recipe(Long usages, Menu menu, Inventory inventory) {
-        this.usages = usages;
-        this.menu = menu;
+    public InventoryRecord(LocalDate date, Inventory inventory, Long currentVolume, Long orderVolume) {
+        this.date = date;
         this.inventory = inventory;
+        this.currentVolume = currentVolume;
+        this.orderVolume = orderVolume;
     }
 }

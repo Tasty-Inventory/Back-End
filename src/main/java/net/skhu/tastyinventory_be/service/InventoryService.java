@@ -37,13 +37,41 @@ public class InventoryService {
 
     public InventoryResponseDto findInventory(Long id) {
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION, ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()));
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION,
+                        ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()));
 
         return InventoryResponseDto.from(inventory);
     }
 
-    public List<InventoryResponseDto> findAllInventory() {
-        List<Inventory> inventoryList = inventoryRepository.findAll();
+    public List<InventoryResponseDto> findAllByNameContaining(String srchText) {
+        List<Inventory> inventoryList = inventoryRepository.findAllByNameContaining(srchText);
+
         return inventoryList.stream().map(InventoryResponseDto::from).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateInventory(Long id, String name, Unit unit, MultipartFile image) {
+        Inventory inventory = inventoryRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION,
+                        ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()
+                )
+        );
+
+        s3Service.deleteFile(inventory.getImageUrl());
+        String imageUrl = s3Service.uploadImage(image, "inventory");
+
+        inventory.update(name, unit, imageUrl);
+    }
+
+    @Transactional
+    public void deleteInventory(Long id) {
+        Inventory inventory = inventoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION,
+                        ErrorCode.NOT_FOUND_INVENTORY_EXCEPTION.getMessage()));
+
+        s3Service.deleteFile(inventory.getImageUrl());
+
+        inventoryRepository.delete(inventory);
     }
 }

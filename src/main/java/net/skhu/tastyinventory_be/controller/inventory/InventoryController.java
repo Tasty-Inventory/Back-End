@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class InventoryController {
     public BaseResponse<?> createInventory(
             @RequestParam("inventoryName") String name,
             @RequestParam("inventoryUnit") Unit unit,
-            @RequestParam("inventoryImage") MultipartFile image
+            @RequestPart("inventoryImage") MultipartFile image
     ) {
         inventoryService.createInventory(name, unit, image);
         return BaseResponse.success(SuccessCode.INVENTORY_CREATE_SUCCESS);
@@ -41,8 +42,31 @@ public class InventoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<List<InventoryResponseDto>> findAllInventory() {
-        final List<InventoryResponseDto> data = inventoryService.findAllInventory();
+    public BaseResponse<List<InventoryResponseDto>> findAllByNameContaining(
+            @RequestParam(name = "srchText", required = false) Optional<String> srchText
+    ) {
+        final List<InventoryResponseDto> data = inventoryService.findAllByNameContaining(srchText.orElse(""));
         return BaseResponse.success(SuccessCode.INVENTORY_GET_SUCCESS, data);
+    }
+
+    @PatchMapping(
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<?> updateInventory(
+            @RequestParam("inventoryName") String name,
+            @RequestParam("inventoryUnit") Unit unit,
+            @RequestPart("inventoryImage") MultipartFile image,
+            @PathVariable Long id) {
+        inventoryService.updateInventory(id, name, unit, image);
+        return BaseResponse.success(SuccessCode.INVENTORY_PATCH_SUCCESS);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<?> deleteInventory(@PathVariable Long id) {
+        inventoryService.deleteInventory(id);
+        return BaseResponse.success(SuccessCode.INVENTORY_DELETE_SUCCESS);
     }
 }
