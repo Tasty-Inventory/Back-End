@@ -11,7 +11,6 @@ import net.skhu.tastyinventory_be.exception.SuccessCode;
 import net.skhu.tastyinventory_be.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeEdit;
 
@@ -104,11 +103,11 @@ public class EmployeeController {
 
             employeeService.save(employee);
 
-                return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_PATCH_SUCCESS));
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
-            }
+            return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_PATCH_SUCCESS));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
+    }
 
 
 

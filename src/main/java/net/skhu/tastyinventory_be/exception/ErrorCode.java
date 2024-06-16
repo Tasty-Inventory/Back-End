@@ -52,7 +52,7 @@ public enum ErrorCode {
     NOT_FOUND_EMPLOYEE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 직원입니다"),
     NOT_FOUND_SOLD_EXCEPTION(HttpStatus.NOT_FOUND, "재고량이 존재하지 않습니다"),
     NOT_FOUND_INVENTORY_RECORD_EXCEPTION(HttpStatus.NOT_FOUND, "재고기록이 존재하지 않습니다"),
-
+    NOT_FOUND_SCHEDULE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 스케줄입니다"),
     /**
      * 500 INTERNAL SERVER ERROR
      */
