@@ -21,6 +21,7 @@ public enum SuccessCode {
     INVENTORY_PATCH_SUCCESS(HttpStatus.OK, "재고 수정이 완료되었습니다"),
     MENU_PATCH_SUCCESS(HttpStatus.OK, "메뉴 수정이 완료되었습니다"),
     MENU_DELETE_SUCCESS(HttpStatus.OK, "메뉴 삭제에 성공했습니다"),
+    SOLD_DELETE_SUCCESSCODE(HttpStatus.OK, "메뉴 판매량 삭제에 성공했습니다"),
 
     /**
      * 201 CREATED
@@ -42,6 +43,8 @@ public enum SuccessCode {
     SALARY_DELETE_SUCCESS(HttpStatus.NO_CONTENT, "급여 삭제에 성공했습니다"),
     EMPLOYEE_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "직원 정보 수정이 완료되었습니다"),
     SALARY_PATCH_SUCCESS(HttpStatus.NO_CONTENT, "급여 정보 수정이 완료되었습니다"),
+    SOLD_PATCH_SUCCESSCODE(HttpStatus.NO_CONTENT, "재고량 정보 수정이 완료되었습니다"),
+    
     ;
 
 
