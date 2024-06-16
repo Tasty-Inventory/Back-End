@@ -2,6 +2,8 @@ package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
 import net.skhu.tastyinventory_be.controller.inventoryRecord.dto.request.InventoryRecordRequestDto;
+import net.skhu.tastyinventory_be.controller.inventoryRecord.dto.request.InventoryRecordUpdateRequestDto;
+import net.skhu.tastyinventory_be.controller.inventoryRecord.dto.response.InventoryRecordResponseDto;
 import net.skhu.tastyinventory_be.domain.inventory.Inventory;
 import net.skhu.tastyinventory_be.domain.inventory.InventoryRepository;
 import net.skhu.tastyinventory_be.domain.inventoryRecord.InventoryRecord;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -42,5 +46,37 @@ public class InventoryRecordService {
 
             inventoryRecordRepository.save(inventoryRecord);
         }
+    }
+    public List<InventoryRecordResponseDto> getAllInventoryRecords() {
+        return inventoryRecordRepository.findAll().stream()
+                .map(InventoryRecordResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateInventoryRecord(Long id, InventoryRecordUpdateRequestDto requestDto) {
+        InventoryRecord inventoryRecord = inventoryRecordRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_INVENTORY_RECORD_EXCEPTION,
+                        ErrorCode.NOT_FOUND_INVENTORY_RECORD_EXCEPTION.getMessage() + id
+                ));
+
+        inventoryRecord.update(
+                LocalDate.parse(requestDto.getDate()),
+                requestDto.getCurrentVolume(),
+                requestDto.getOrderVolume()
+        );
+
+        inventoryRecordRepository.save(inventoryRecord);
+    }
+
+    @Transactional
+    public void deleteInventoryRecord(Long id) {
+        InventoryRecord inventoryRecord = inventoryRecordRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        ErrorCode.NOT_FOUND_INVENTORY_RECORD_EXCEPTION,
+                        ErrorCode.NOT_FOUND_INVENTORY_RECORD_EXCEPTION.getMessage() + id
+                ));
+        inventoryRecordRepository.delete(inventoryRecord);
     }
 }
