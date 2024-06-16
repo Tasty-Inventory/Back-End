@@ -22,6 +22,10 @@ public enum SuccessCode {
     MENU_PATCH_SUCCESS(HttpStatus.OK, "메뉴 수정이 완료되었습니다"),
     MENU_DELETE_SUCCESS(HttpStatus.OK, "메뉴 삭제에 성공했습니다"),
     SOLD_DELETE_SUCCESSCODE(HttpStatus.OK, "메뉴 판매량 삭제에 성공했습니다"),
+    INVENTORY_RECORD_GET_SUCCESS(HttpStatus.OK, "재고량 정보 조회에 성공했습니다"),
+    INVENTORY_RECORD_PATCH_SUCCESS(HttpStatus.OK, "재고량 정보 수정이 완료되었습니다"),
+    INVENTORY_RECORD_DELETE_SUCCESS(HttpStatus.OK, "재고량 정보 삭제에 성공했습니다"),
+
 
     /**
      * 201 CREATED

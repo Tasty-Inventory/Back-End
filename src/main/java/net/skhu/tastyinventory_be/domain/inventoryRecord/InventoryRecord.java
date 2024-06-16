@@ -34,4 +34,9 @@ public class InventoryRecord extends BaseEntity {
         this.currentVolume = currentVolume;
         this.orderVolume = orderVolume;
     }
+    public void update(LocalDate date, Long currentVolume, Long orderVolume) {
+        this.date = date;
+        this.currentVolume = currentVolume;
+        this.orderVolume = orderVolume;
+    }
 }
