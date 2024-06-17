@@ -1,3 +1,4 @@
+///*
 //package net.skhu.tastyinventory_be.config;
 //
 //import org.springframework.beans.factory.annotation.Value;
@@ -25,3 +26,4 @@
 //                .allowCredentials(true);
 //    }
 //}
+//*/

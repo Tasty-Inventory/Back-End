@@ -1,4 +1,4 @@
-package net.skhu.tastyinventory_be.controller.sold.dto.request;
+package net.skhu.tastyinventory_be.controller.inventoryRecord.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,12 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SoldRequestDto {
+public class InventoryRecordUpdateRequestDto {
     @NotBlank(message = "날짜를 입력하세요")
     @Pattern(
             regexp="^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$",
@@ -20,6 +18,9 @@ public class SoldRequestDto {
     )
     private String date;
 
-    @NotNull
-    private List<SoldMenuDto> soldMenuList;
+    @NotNull(message = "현 재고량을 입력하세요")
+    private Long currentVolume;
+
+    @NotNull(message = "발주량을 입력하세요")
+    private Long orderVolume;
 }

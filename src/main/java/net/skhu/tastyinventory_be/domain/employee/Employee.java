@@ -1,14 +1,10 @@
 package net.skhu.tastyinventory_be.domain.employee;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -33,6 +29,4 @@ public class Employee {
 
     String note; // 특이사항
 
-//   @OneToMany
-//   List<Schedule> schedules = new ArrayList<>();
 }

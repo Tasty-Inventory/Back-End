@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import net.skhu.tastyinventory_be.domain.BaseEntity;
 import net.skhu.tastyinventory_be.domain.menu.Menu;
 
@@ -15,6 +16,10 @@ import java.time.LocalDate;
 @Table(name = "SOLD")
 @Entity
 public class Sold extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     private LocalDate date;
 
@@ -29,6 +34,13 @@ public class Sold extends BaseEntity {
     public Sold(LocalDate date, Menu menu, Long count) {
         this.date = date;
         this.menu = menu;
+        this.count = count;
+    }
+    public void update(Long newCount) {
+        this.count = newCount; // 판매량을 업데이트
+    }
+
+    public void setCount(long count) {
         this.count = count;
     }
 }
