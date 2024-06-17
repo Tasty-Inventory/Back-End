@@ -8,6 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SoldRepository extends JpaRepository<Sold, Long> {
-    List<Sold> findByDate(LocalDate date);
-    Optional<Sold> findByDateAndMenu(LocalDate date, Menu menu);
+    List<Sold> findByMenuId(Long id);
 }
