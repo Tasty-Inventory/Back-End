@@ -1,5 +1,6 @@
 package net.skhu.tastyinventory_be.controller.sold;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import net.skhu.tastyinventory_be.service.SoldService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -28,8 +28,19 @@ public class SoldController {
         return BaseResponse.success(SuccessCode.SOLD_CREATE_SUCCESS);
     }
     @GetMapping
-    public BaseResponse<List<SoldResponseDto>> getSoldAll() {
-        List<SoldResponseDto> soldResponseDtoList = soldService.getSoldAll();
+    public BaseResponse<List<SoldResponseDto>> findAllSold() {
+        List<SoldResponseDto> soldResponseDtoList = soldService.findAllSold();
         return BaseResponse.success(SuccessCode.GET_SUCCESS, soldResponseDtoList);
+    }
+//    @PatchMapping
+//    public BaseResponse<?> updateSold(@RequestBody @Valid SoldRequestDto requestDto) {
+//        soldService.updateSold(requestDto);
+//        return BaseResponse.success(SuccessCode.SOLD_PATCH_SUCCESSCODE);
+//    }
+
+    @DeleteMapping("/{id}")
+    public BaseResponse<?> deleteSold(@PathVariable("id") Long id) {
+        soldService.deleteSold(id);
+        return BaseResponse.success(SuccessCode.SOLD_DELETE_SUCCESSCODE);
     }
 }
