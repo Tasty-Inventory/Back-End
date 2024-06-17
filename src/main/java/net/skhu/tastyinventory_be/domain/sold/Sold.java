@@ -30,14 +30,13 @@ public class Sold extends BaseEntity {
     private Long count;
 
     @Builder
-    public Sold(LocalDate date, Menu menu, Long count) {
+    public Sold(Long id, LocalDate date, Menu menu, Long count) {
+        this.setId(id);
         this.date = date;
         this.menu = menu;
         this.count = count;
     }
-    public void update(Menu menu, Long count) {
-        this.menu = menu; // Menu 객체를 업데이트 (필요에 따라)
+    public void update(Long count) {
         this.count = count; // 판매량을 업데이트
     }
-
 }

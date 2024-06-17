@@ -32,11 +32,11 @@ public class SoldController {
         List<SoldResponseDto> soldResponseDtoList = soldService.findAllSold();
         return BaseResponse.success(SuccessCode.GET_SUCCESS, soldResponseDtoList);
     }
-//    @PatchMapping
-//    public BaseResponse<?> updateSold(@RequestBody @Valid SoldRequestDto requestDto) {
-//        soldService.updateSold(requestDto);
-//        return BaseResponse.success(SuccessCode.SOLD_PATCH_SUCCESSCODE);
-//    }
+    @PatchMapping("/{id}")
+    public BaseResponse<?> updateSold(@PathVariable("id") Long id, @RequestBody @Valid SoldRequestDto requestDto) {
+        soldService.updateSold(id, requestDto);
+        return BaseResponse.success(SuccessCode.SOLD_PATCH_SUCCESSCODE);
+    }
 
     @DeleteMapping("/{id}")
     public BaseResponse<?> deleteSold(@PathVariable("id") Long id) {
