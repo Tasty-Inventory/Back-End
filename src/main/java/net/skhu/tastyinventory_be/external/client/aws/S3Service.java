@@ -57,6 +57,9 @@ public class S3Service {
     }
 
     public String uploadImage(MultipartFile multipartFile, String folder) {
+        if (multipartFile == null) {
+            return "https://s3.ap-northeast-2.amazonaws.com/tasty-inventory-be-image/menu/image/4ae07266-577b-41bd-aa07-a8644c853914.jpeg2024-06-18T03%3A57%3A09.656107790";
+        }
         String fileName = createFileName(multipartFile.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());

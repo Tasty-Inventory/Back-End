@@ -25,7 +25,7 @@ public class MenuController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<?> createMenu(
-            @RequestPart("image") MultipartFile image,
+            @RequestPart(name = "image", required = false) MultipartFile image,
             @RequestPart("data") MenuRequestDto requestDto
     ) {
         menuService.createMenu(image, requestDto);
@@ -53,7 +53,7 @@ public class MenuController {
     )
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<?> updateMenu(
-            @RequestPart("image") MultipartFile image,
+            @RequestPart(name = "image", required = false) MultipartFile image,
             @RequestPart("data") MenuRequestDto requestDto,
             @PathVariable Long id
     ) {

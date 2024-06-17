@@ -27,7 +27,7 @@ public class InventoryController {
     public BaseResponse<?> createInventory(
             @RequestParam("inventoryName") String name,
             @RequestParam("inventoryUnit") Unit unit,
-            @RequestPart("inventoryImage") MultipartFile image
+            @RequestPart(name = "inventoryImage", required = false) MultipartFile image
     ) {
         inventoryService.createInventory(name, unit, image);
         return BaseResponse.success(SuccessCode.INVENTORY_CREATE_SUCCESS);
@@ -57,7 +57,7 @@ public class InventoryController {
     public BaseResponse<?> updateInventory(
             @RequestParam("inventoryName") String name,
             @RequestParam("inventoryUnit") Unit unit,
-            @RequestPart("inventoryImage") MultipartFile image,
+            @RequestPart(name = "inventoryImage", required = false) MultipartFile image,
             @PathVariable Long id) {
         inventoryService.updateInventory(id, name, unit, image);
         return BaseResponse.success(SuccessCode.INVENTORY_PATCH_SUCCESS);

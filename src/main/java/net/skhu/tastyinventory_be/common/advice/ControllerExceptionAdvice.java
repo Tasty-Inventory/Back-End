@@ -84,7 +84,7 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected BaseResponse handleException(final Exception e, final HttpServletRequest request) throws IOException {
-        log.error("Internal Server Error: {}", e.getMessage());
+        log.error("Internal Server Error {}:", e.getMessage(), e);
         return BaseResponse.error(ErrorCode.INTERNAL_SERVER_ERROR);
     }
 
