@@ -1,6 +1,7 @@
 package net.skhu.tastyinventory_be.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.skhu.tastyinventory_be.controller.sold.dto.request.SoldMenuDto;
 import net.skhu.tastyinventory_be.controller.sold.dto.request.SoldRequestDto;
 import net.skhu.tastyinventory_be.controller.sold.dto.response.SoldResponseDto;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service

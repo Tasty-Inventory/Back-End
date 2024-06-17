@@ -26,8 +26,4 @@ public abstract class BaseEntity {
     @Column(name = "UPDATE_AT", nullable = false)
     @LastModifiedDate
     private LocalDateTime updateAt;
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 }
