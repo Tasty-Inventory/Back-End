@@ -19,28 +19,15 @@ import java.util.List;
 public class SoldController {
     private final SoldService soldService;
 
-/*    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public BaseResponse<?> registerSold(@RequestBody @Valid SoldRequestDto requestDto) {
-        soldService.registerSold(requestDto);
-        return BaseResponse.success(SuccessCode.SOLD_CREATE_SUCCESS);
-    }*/
-
     @GetMapping
     public BaseResponse<List<SoldResponseDto>> findAllSold() {
         List<SoldResponseDto> soldResponseDtoList = soldService.findAllSold();
         return BaseResponse.success(SuccessCode.GET_SUCCESS, soldResponseDtoList);
     }
 
-    @PutMapping("/{id}")
-    public BaseResponse<?> updateSold(@PathVariable("id") Long id, @RequestBody @Valid SoldRequestDto requestDto) {
-        soldService.updateSold(id, requestDto);
+    @PutMapping
+    public BaseResponse<?> updateAllSold(@RequestBody @Valid SoldRequestDto requestDto) {
+        soldService.updateAllSold(requestDto);
         return BaseResponse.success(SuccessCode.SOLD_PATCH_SUCCESSCODE);
     }
-
-/*    @DeleteMapping("/{id}")
-    public BaseResponse<?> deleteSold(@PathVariable("id") Long id) {
-        soldService.deleteSold(id);
-        return BaseResponse.success(SuccessCode.SOLD_DELETE_SUCCESSCODE);
-    }*/
 }
