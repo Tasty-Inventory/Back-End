@@ -41,6 +41,7 @@ public class SoldService {
 
     @Transactional
     public void updateAllSold(SoldRequestDto requestDto) {
+        LocalDate currentDate = LocalDate.now();
         for (SoldMenuDto soldMenuDto : requestDto.getSoldMenuList()) {
             Menu menu = menuRepository.findById(soldMenuDto.getMenuId()).orElseThrow(
                     () -> new NotFoundException(
@@ -51,7 +52,7 @@ public class SoldService {
             Sold sold;
             if (soldList.isEmpty()) {
                 sold = Sold.builder()
-                        .date(LocalDate.parse(requestDto.getDate()))
+                        .date(currentDate)
                         .menu(menu)
                         .count(soldMenuDto.getSoldCount())
                         .build();
