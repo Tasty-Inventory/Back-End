@@ -33,7 +33,7 @@ public class SoldService {
                 .map(menu -> {
                     Sold sold = soldRepository.findByMenuId(menu.getId())
                             .stream()
-                            .findFirst() // 존재하는 경우 첫 번째 판매 엔티티 가져오기
+                            .findFirst()
                             .orElse(null);
                     Long soldCount = sold != null ? sold.getCount() : 0L;
                     return new SoldResponseDto(menu.getId(), menu.getName(), soldCount);
@@ -42,12 +42,12 @@ public class SoldService {
     }
 
     @Transactional
-    public void updateSold(Long id, SoldRequestDto requestDto) {
+    public void updateAllSold(SoldRequestDto requestDto) {
         for (SoldMenuDto soldMenuDto : requestDto.getSoldMenuList()) {
             Menu menu = menuRepository.findById(soldMenuDto.getMenuId()).orElseThrow(
                     () -> new NotFoundException(
                             ErrorCode.NOT_FOUND_MENU_EXCEPTION,
-                            ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage() + id));
+                            ErrorCode.NOT_FOUND_MENU_EXCEPTION.getMessage() + soldMenuDto.getMenuId()));
 
             List<Sold> soldList = soldRepository.findByMenuId(menu.getId());
             Sold sold;
@@ -64,24 +64,14 @@ public class SoldService {
             soldRepository.save(sold);
         }
     }
-/*
-    @Transactional
-    public void deleteSold(Long id) {
-        Sold sold = soldRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(
-                        ErrorCode.NOT_FOUND_SOLD_EXCEPTION,
-                        ErrorCode.NOT_FOUND_SOLD_EXCEPTION.getMessage() + id));
-        soldRepository.delete(sold);
-    }*/
-    @Scheduled(cron = "0 0 0 * * *") // 매일 자정에 실행
+
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void resetSoldCounts() {
-        // Sold 엔티티의 모든 판매량(count)을 0으로 초기화합니다.
         List<Sold> soldList = soldRepository.findAll();
         for (Sold sold : soldList) {
             sold.setCount(0L);
         }
         soldRepository.saveAll(soldList);
     }
-
 }
