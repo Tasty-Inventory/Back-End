@@ -7,6 +7,7 @@ import net.skhu.tastyinventory_be.domain.employee.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Transactional
     public void save(Employee employee) {
@@ -22,7 +24,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public List<EmployeeResponseDto> getEmployee(){
+    public List<EmployeeResponseDto> getEmployee() {
         List<Employee> employees = employeeRepository.findAll();
         List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
         for (Employee employee : employees) {
@@ -31,6 +33,13 @@ public class EmployeeService {
             employeeResponseDto.setName(employee.getName());
             employeeResponseDto.setPhoneNumber(employee.getPhoneNumber());
             employeeResponseDto.setPosition(employee.getPosition());
+            employeeResponseDto.setRrn(employee.getRrn());
+            employeeResponseDto.setEmail(employee.getEmail());
+            employeeResponseDto.setAddress(employee.getAddress());
+            employeeResponseDto.setHireDate(employee.getHireDate() != null ? sdf.format(employee.getHireDate()) : null);
+            employeeResponseDto.setEmploymentStatus(employee.getEmploymentStatus());
+            employeeResponseDto.setBankAccount(employee.getBankAccount());
+            employeeResponseDto.setNote(employee.getNote());
             employeeResponseDtos.add(employeeResponseDto);
         }
         return employeeResponseDtos;
@@ -46,7 +55,13 @@ public class EmployeeService {
             employeeResponseDto.setName(employee.getName());
             employeeResponseDto.setPhoneNumber(employee.getPhoneNumber());
             employeeResponseDto.setPosition(employee.getPosition());
-
+            employeeResponseDto.setRrn(employee.getRrn());
+            employeeResponseDto.setEmail(employee.getEmail());
+            employeeResponseDto.setAddress(employee.getAddress());
+            employeeResponseDto.setHireDate(employee.getHireDate() != null ? sdf.format(employee.getHireDate()) : null);
+            employeeResponseDto.setEmploymentStatus(employee.getEmploymentStatus());
+            employeeResponseDto.setBankAccount(employee.getBankAccount());
+            employeeResponseDto.setNote(employee.getNote());
             return employeeResponseDto;
         } else {
             return null;
@@ -57,7 +72,8 @@ public class EmployeeService {
     public void deleteById(Long id) {
         employeeRepository.deleteById(id);
     }
-    @Transactional
+
+    @Transactional(readOnly = true)
     public Optional<Employee> findById(Long id) {
         return employeeRepository.findById(id);
     }

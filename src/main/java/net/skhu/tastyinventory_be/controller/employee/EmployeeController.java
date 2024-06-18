@@ -17,7 +17,6 @@ import net.skhu.tastyinventory_be.controller.employee.dto.EmployeeEdit;
 import java.util.List;
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("employee")
@@ -31,10 +30,8 @@ public class EmployeeController {
         return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, employeeService.getEmployee()));
     }
 
-
     @PostMapping
     public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeEdit employeeEdit) {
-
         Employee employee = new Employee();
         employee.setName(employeeEdit.getName());
         employee.setRrn(employeeEdit.getRrn());
@@ -53,7 +50,7 @@ public class EmployeeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getEmployeeDetails(@PathVariable(name ="id") Long id) {
+    public ResponseEntity<?> getEmployeeDetails(@PathVariable(name = "id") Long id) {
         EmployeeResponseDto employee = employeeService.getEmployeeDetails(id);
         if (employee != null) {
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.GET_SUCCESS, employee));
@@ -63,8 +60,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<?> editEmployeeDetails(@PathVariable(name ="id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit) {
-
+    public ResponseEntity<?> editEmployeeDetails(@PathVariable(name = "id") Long id, @Valid @RequestBody EmployeeEdit employeeEdit) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
@@ -100,19 +96,15 @@ public class EmployeeController {
                 employee.setNote(employeeEdit.getNote());
             }
 
-
             employeeService.save(employee);
-
             return ResponseEntity.ok(BaseResponse.success(SuccessCode.EMPLOYEE_PATCH_SUCCESS));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(ErrorCode.NOT_FOUND_EMPLOYEE_EXCEPTION));
         }
     }
 
-
-
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable(name ="id") Long id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable(name = "id") Long id) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         if (employeeOptional.isPresent()) {
             employeeService.deleteById(id);
@@ -122,4 +114,3 @@ public class EmployeeController {
         }
     }
 }
-

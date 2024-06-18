@@ -171,7 +171,14 @@ public class AuthenticationController {
 
     private void generateTokenCookie(UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) {
         final int cookieMaxAge = jwtProvider.getTokenExpirationDate().intValue();
-        CookieUtils.addCookie(response, "access_token", jwtProvider.generateToken(userDetails.getUsername()), true, true, cookieMaxAge);
+        CookieUtils.addCookie(
+                response,
+                "access_token",
+                jwtProvider.generateToken(userDetails.getUsername()),
+                true,
+                true,
+                cookieMaxAge
+        );
     }
 
     private void redirectWithErrorMessage(String uri, String message, HttpServletResponse response) throws IOException {

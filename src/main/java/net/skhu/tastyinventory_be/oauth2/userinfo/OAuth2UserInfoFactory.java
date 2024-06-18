@@ -14,7 +14,10 @@ public class OAuth2UserInfoFactory {
         } else if (registrationId.equalsIgnoreCase("naver")) {
             return new NaverOAuth2UserInfo(attributes);
         } else {
-            throw new OAuth2NotSupportException(ErrorCode.OAUTH2_NOT_SUPPORT_EXCEPTION, ErrorCode.OAUTH2_NOT_SUPPORT_EXCEPTION.getMessage());
+            throw new OAuth2NotSupportException(
+                    ErrorCode.OAUTH2_NOT_SUPPORT_EXCEPTION,
+                    ErrorCode.OAUTH2_NOT_SUPPORT_EXCEPTION.getMessage()
+            );
         }
     }
 }
