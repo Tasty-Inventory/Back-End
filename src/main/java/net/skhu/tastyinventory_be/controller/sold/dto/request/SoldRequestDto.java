@@ -13,13 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SoldRequestDto {
-    @NotBlank(message = "날짜를 입력하세요")
-    @Pattern(
-            regexp="^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$",
-            message = "YYYY-MM-DD 형식으로 입력하세요"
-    )
-    private String date;
-
     @NotNull
     private List<SoldMenuDto> soldMenuList;
 }
