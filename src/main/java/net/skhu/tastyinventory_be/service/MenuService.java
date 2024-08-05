@@ -33,7 +33,10 @@ public class MenuService {
     public void createMenu(MultipartFile image, MenuRequestDto requestDto) {
         String imageUrl = s3Service.uploadImage(image, "menu");
 
-        Menu menu = Menu.builder().imageUrl(imageUrl).name(requestDto.getName()).build();
+        Menu menu = Menu.builder()
+                .imageUrl(imageUrl)
+                .name(requestDto.getName())
+                .build();
 
         menuRepository.save(menu);
 

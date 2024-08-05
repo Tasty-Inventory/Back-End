@@ -48,9 +48,8 @@ public class SecurityConfigurer {
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers("/csrf-token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users", "/authorize").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/users").authenticated()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .exceptionHandling(a -> a
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             log.error("403: {}", accessDeniedException.getMessage(), accessDeniedException);
