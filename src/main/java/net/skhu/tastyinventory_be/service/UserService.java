@@ -36,6 +36,11 @@ public class UserService {
                 .username(signUpRequestDto.getEmail())
                 .name(signUpRequestDto.getName())
                 .email(signUpRequestDto.getEmail())
+                .age(signUpRequestDto.getAge())
+                .gender(signUpRequestDto.getGender())
+                .activity(signUpRequestDto.getActivity())
+                .height(signUpRequestDto.getHeight())
+                .weight(signUpRequestDto.getWeight())
                 .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
                 .type(UserType.DEFAULT)
                 .build();

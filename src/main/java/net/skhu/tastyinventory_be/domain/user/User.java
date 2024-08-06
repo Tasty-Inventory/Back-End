@@ -29,6 +29,21 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
+    private String gender;
+
+    @Column(nullable = false)
+    private Integer age;
+
+    @Column(nullable = false)
+    private Integer height;
+
+    @Column(nullable = false)
+    private Integer weight;
+
+    @Column(nullable = false)
+    private String activity;
+
     private String password;
 
     @Enumerated(value = EnumType.STRING)
@@ -44,10 +59,15 @@ public class User extends BaseEntity {
     private OAuth2Account social;
 
     @Builder
-    public User(String username, String name, String email, String password, UserType type) {
+    public User(String username, String name, String email, String gender, Integer height, Integer age, Integer weight, String activity, String password, UserType type) {
         this.username = username;
         this.name = name;
         this.email = email;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.activity = activity;
         this.password = password;
         this.authorities.add(AuthorityType.ROLE_MEMBER);
         this.type = type;

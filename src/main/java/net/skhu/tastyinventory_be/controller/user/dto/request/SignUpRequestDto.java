@@ -19,6 +19,16 @@ public class SignUpRequestDto {
     @Email(message = "이메일 형식이 잘못되었습니다.")
     private String email;
 
+    private String gender;
+
+    private Integer age;
+
+    private Integer height;
+
+    private Integer weight;
+
+    private String activity;
+
     @Pattern(regexp = "[a-zA-z!@#$%^&*-_]{6,20}", message = "6~20 길이의 알파벳과 숫자, 특수문자만 사용할 수 있습니다.")
     private String password;
 }
